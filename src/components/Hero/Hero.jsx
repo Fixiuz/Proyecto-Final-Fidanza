@@ -17,7 +17,7 @@ function Hero() {
               <br /><br />
               ¡Confía en nosotros para potenciar tu mundo digital!
             </p>
-            <Button variant="primary" href="catalogo">Ver catálogo</Button>
+            
           </Col>
           <Col md={5} className="d-none d-md-block">
             <img 

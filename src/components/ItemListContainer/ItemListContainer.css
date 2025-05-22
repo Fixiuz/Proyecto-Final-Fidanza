@@ -4,14 +4,67 @@
 
 .item-list-title {
   text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .item-list-loading {
   text-align: center;
+  font-size: 1.2rem;
+  color: #666;
 }
 
+/* Grilla de productos con 5 columnas */
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+}
+@media (max-width: 1200px) {
+  .item-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .item-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Botón "Ver más" */
+.item-btn {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.item-btn:hover {
+  background-color: #084298;
+  cursor: pointer;
+}
+
+/* Estilo para el sidebar */
+.sidebar {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.05);
+}
+
+.sidebar h5,
+.sidebar h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
