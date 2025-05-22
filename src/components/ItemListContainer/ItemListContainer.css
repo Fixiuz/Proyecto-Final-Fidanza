@@ -1,0 +1,17 @@
+.item-list-container {
+  padding: 2rem;
+}
+
+.item-list-title {
+  text-align: center;
+}
+
+.item-list-loading {
+  text-align: center;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
