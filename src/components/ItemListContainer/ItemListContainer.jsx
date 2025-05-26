@@ -1,16 +1,32 @@
+
 import React, { useEffect, useState, useMemo } from 'react';
 import Item from '../Item/Item';
 import './ItemListContainer.css';
 import { Container, Row, Col, Form, ListGroup, Spinner, Alert, Button } from 'react-bootstrap';
-
+import { useLocation } from 'react-router-dom'; 
 function ItemListContainer() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const [limite, setLimite] = useState(12);
+  const [limite, setLimite] = useState(12); 
   const [orden, setOrden] = useState('');
   const [busqueda, setBusqueda] = useState('');
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
+
+  
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoriaFromUrl = queryParams.get('categoria');
+
+  
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categoriaFromUrl || '');
+
+ 
+  useEffect(() => {
+    setCategoriaSeleccionada(categoriaFromUrl || '');
+    
+    setLimite(12); 
+  }, [categoriaFromUrl]); 
+
 
   useEffect(() => {
     setCargando(true);
@@ -28,8 +44,7 @@ function ItemListContainer() {
   }, []);
 
   const categorias = useMemo(
-    () => [...new Set(productos.map(p => p.categoria))],
-    [productos]
+    () => [...new Set(productos.map(p => p.categoria))].sort(), 
   );
 
   const productosFiltrados = useMemo(() => {
@@ -37,17 +52,19 @@ function ItemListContainer() {
 
     if (busqueda.trim()) {
       filtrados = filtrados.filter(p =>
-        p.titulo.toLowerCase().includes(busqueda.toLowerCase())
+        p.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+        p.descripcion.toLowerCase().includes(busqueda.toLowerCase()) 
       );
     }
 
+    
     if (categoriaSeleccionada) {
       filtrados = filtrados.filter(p => p.categoria === categoriaSeleccionada);
     }
 
     switch (orden) {
-      case 'nombre':
-        filtrados.sort((a, b) => a.nombre.localeCompare(b.titulo));
+      case 'titulo': 
+        filtrados.sort((a, b) => a.titulo.localeCompare(b.titulo));
         break;
       case 'categoria':
         filtrados.sort((a, b) => a.categoria.localeCompare(b.categoria));
@@ -56,19 +73,24 @@ function ItemListContainer() {
         filtrados.sort((a, b) => a.precio - b.precio);
         break;
       default:
+        
         break;
     }
 
     return filtrados;
   }, [productos, busqueda, categoriaSeleccionada, orden]);
 
-  const mostrarMas = () => setLimite(prev => prev + 15);
+  const mostrarMas = () => {
+    setLimite(prev => prev + 12); 
+  };
 
   return (
     <Container fluid className="mt-4">
-      <h2 className="item-list-title">Todos los productos</h2>
-
       
+      <h2 className="item-list-title">
+        {categoriaSeleccionada ? `Productos de ${categoriaSeleccionada}` : 'Novedades'}
+      </h2>
+
       <Row>
         {/* Sidebar */}
         <Col md={3}>
@@ -79,7 +101,7 @@ function ItemListContainer() {
               <Form.Label>Buscar</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Buscar por nombre"
+                placeholder="Buscar por nombre o descripción"
                 value={busqueda}
                 onChange={e => setBusqueda(e.target.value)}
                 aria-label="Buscar productos por nombre"
@@ -93,7 +115,7 @@ function ItemListContainer() {
                 onChange={e => setOrden(e.target.value)}
                 aria-label="Ordenar productos"
               >
-                <option value="">Seleccionar</option>
+                <option value="">Sin ordenar</option> 
                 <option value="titulo">Nombre</option>
                 <option value="categoria">Categoría</option>
                 <option value="precio">Precio</option>
@@ -125,7 +147,6 @@ function ItemListContainer() {
 
         {/* Productos */}
         <Col md={9}>
-
           {cargando ? (
             <div className="text-center">
               <Spinner animation="border" variant="primary" />
@@ -144,9 +165,7 @@ function ItemListContainer() {
               </div>
               {productosFiltrados.length > limite && (
                 <div className="text-center mt-4">
-                  <Button variant="outline-primary" onClick={mostrarMas}>
-                    Ver más
-                  </Button>
+                  
                 </div>
               )}
             </>

@@ -1,33 +1,59 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
+import './NavBar.css';
 
-function NavBar() {
+function NavBar({ usuario, setUsuario }) {
+  const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUsuario(null);
+    navigate('/');
+  };
+
   return (
-    <Navbar bg="light" expand="lg" className="shadow-sm">
-      <Container fluid className="px-4">
-        {/* Logo a la izquierda */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold text-primary">
-          MiLogo
-        </Navbar.Brand>
+    <nav className="navbar">
+      <div className="navbar-container">
+        {/* Logo */}
+        <div className="navbar-logo">
+          <Link to="/" onClick={() => setExpanded(false)}><p>Tech</p><p className='logo2'>Life</p></Link>
+        </div>
 
         {/* Botón hamburguesa */}
-        <Navbar.Toggle aria-controls="navbar-nav" />
+        <button
+          className="navbar-toggle"
+          onClick={() => setExpanded(!expanded)}
+        >
+          ☰
+        </button>
 
-        {/* Menú colapsable */}
-        <Navbar.Collapse id="navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/about">Quiénes Somos</Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contactanos</Nav.Link>
-            <Nav.Link as={Link} to="/catalogo">Catálogo</Nav.Link>
-            <Nav.Link as={Link} to="/carrito">
+        {/* Menú desplegable */}
+        <div className={`navbar-menu ${expanded ? 'expanded' : ''}`}>
+          <ul className="navbar-center">
+            <li><Link to="/catalogo" onClick={() => setExpanded(false)}>Catálogo</Link></li>
+            <li><Link to="/about" onClick={() => setExpanded(false)}>Quiénes Somos</Link></li>
+            <li><Link to="/contact" onClick={() => setExpanded(false)}>Contactanos</Link></li>
+          </ul>
+
+          <div className="navbar-right">
+            <Link to="/carrito" onClick={() => setExpanded(false)} className="cart-icon">
               <BsCart3 size={22} />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+            </Link>
+            {usuario ? (
+              <>
+                <span className="bienvenida">Bienvenido, {usuario}</span>
+                <button className="sesion-btn" onClick={handleLogout}>Cerrar sesión</button>
+              </>
+            ) : (
+              <button className="sesion-btn" onClick={() => { setExpanded(false); navigate('/login'); }}>
+                Iniciar sesión
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 

@@ -1,20 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
+
 .item-list-container {
   padding: 2rem;
 }
 
 .item-list-title {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+  color: #404040;
+  font-family: 'Chokokutai', sans-serif;
 }
 
 .item-list-loading {
   text-align: center;
   font-size: 1.2rem;
   color: #666;
+  
 }
 
-/* Grilla de productos con 5 columnas */
+
 .item-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -56,15 +62,37 @@
 
 /* Estilo para el sidebar */
 .sidebar {
-  background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.05);
+  background-color: #f8f9fa; 
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar h5,
 .sidebar h6 {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #343a40;
+}
+
+.sidebar .form-control,
+.sidebar .form-select {
+  border-radius: 8px;
+}
+
+.sidebar .list-group-item {
+  border: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.sidebar .list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+.sidebar .list-group-item.active {
+  background-color: #000 !important;  
+  color: #fff;
   font-weight: 600;
 }
+
