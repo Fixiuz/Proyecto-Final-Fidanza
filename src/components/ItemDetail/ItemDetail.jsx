@@ -1,91 +1,59 @@
-
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Spinner, Alert } from 'react-bootstrap';
 import './ItemDetail.css';
+import { useAppContext } from '../../context/AppContext'; // Modificación
 
 function ItemDetail() {
-  const { id } = useParams(); 
-  const [producto, setProducto] = useState(null);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
+  const { id } = useParams();
+  const { products, loading, addToCart } = useAppContext(); // Modificación
 
-  useEffect(() => {
-    
-    setCargando(true);
-    setError(null); 
+  // Modificación: Se elimina el fetch y los estados locales de producto y carga
+  const producto = products.find(p => p.id === id);
 
-    fetch(`https://682ebe91746f8ca4a47e1ee6.mockapi.io/Productos/${id}`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Producto no encontrado'); 
-        }
-        return res.json();
-      })
-      .then(data => {
-        setProducto(data);
-        setCargando(false);
-      })
-      .catch(err => {
-        console.error('Error al cargar el detalle del producto:', err);
-        setError('No se pudo cargar el detalle del producto. Intente más tarde.');
-        setCargando(false);
-      });
-  }, [id]); 
-  const handleAddToCart = () => {
-    alert(`¡"${producto.titulo}" ha sido agregado al carrito!`);
-    console.log(`Agregado al carrito: ${producto.titulo}`);
-    
-  };
-
-  if (cargando) {
+  if (loading) {
     return (
-      <Container className="item-detail-container text-center">
+      <Container className="text-center mt-5">
         <Spinner animation="border" variant="primary" />
-        <p>Cargando detalles del producto...</p>
-      </Container>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container className="item-detail-container text-center">
-        <Alert variant="danger">{error}</Alert>
+        <p>Cargando detalle del producto...</p>
       </Container>
     );
   }
 
   if (!producto) {
     return (
-      <Container className="item-detail-container text-center">
-        <Alert variant="warning">Producto no encontrado.</Alert>
+      <Container className="text-center mt-5">
+        <Alert variant="warning">
+          <h4>Producto no encontrado</h4>
+          <p>El producto que buscas no existe o fue removido.</p>
+          <Link to="/catalogo">
+            <Button variant="primary">Volver al Catálogo</Button>
+          </Link>
+        </Alert>
       </Container>
     );
   }
 
   return (
-    <Container className="item-detail-container my-5">
-      <Row className="justify-content-center align-items-center">
-        
-        <Col md={6} className="text-center">
-          <Image src={producto.img} alt={producto.titulo} fluid className="item-detail-img" />
+    <Container className="item-detail-container mt-5">
+      <Row>
+        <Col md={6}>
+          <Image src={producto.img} alt={producto.titulo} fluid rounded />
         </Col>
-
-        
-        <Col md={6} className="item-detail-info p-4">
-          <h1 className="item-detail-title">{producto.titulo}</h1>
-          <p className="item-detail-category">Categoría: {producto.categoria}</p>
-          <p className="item-detail-description">{producto.descripcion}</p>
-          <p className="item-detail-price">${producto.precio}</p>
-
-          <Button
-            variant="primary"
-            onClick={handleAddToCart}
-            className="item-detail-add-to-cart-btn"
-          >
-            Agregar al carrito
-          </Button>
-          
+        <Col md={6}>
+          <div className="item-detail-info">
+            <h2>{producto.titulo}</h2>
+            <p className="item-detail-description">{producto.descripcion_larga}</p>
+            <p className="item-detail-price">${producto.precio}</p>
+            <p>Categoría: <Link to={`/catalogo?categoria=${producto.categoria}`}>{producto.categoria}</Link></p>
+            <Button 
+              variant="success" 
+              className="mt-3" 
+              onClick={() => addToCart(producto)} // Modificación
+            >
+              Añadir al carrito
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

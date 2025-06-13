@@ -1,50 +1,50 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Container } from 'react-bootstrap';
+import { useAppContext } from '../../context/AppContext';
+import './Login.css';
 
-function Login({ setUsuario }) {
-  const [nombre, setNombre] = useState('');
-  const [clave, setClave] = useState('');
-  const navigate = useNavigate();
+const Login = () => {
+    const [nombre, setNombre] = useState('');
+    const [contrasena, setContrasena] = useState('');
+    const navigate = useNavigate();
+    const { login } = useAppContext();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setUsuario(nombre); 
-    navigate('/'); 
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (nombre.trim() && contrasena.trim()) {
+            login({ name: nombre });
+            navigate('/');
+        } else {
+            alert("Por favor, completa ambos campos.");
+        }
+    };
 
-  return (
-    <Container className="my-5" style={{ maxWidth: '400px' }}>
-      <h2 className="mb-4">Iniciar Sesión</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Usuario</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese su nombre"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Contraseña"
-            value={clave}
-            onChange={(e) => setClave(e.target.value)}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" className="w-100">
-          Iniciar Sesión
-        </Button>
-      </Form>
-    </Container>
-  );
-}
+    return (
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
+                <h2>Iniciar Sesión</h2>
+                <div className="form-group">
+                    <label htmlFor="nombre">Nombre de Usuario</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="contrasena">Contraseña</label>
+                    <input
+                        type="password"
+                        id="contrasena"
+                        value={contrasena}
+                        onChange={(e) => setContrasena(e.target.value)}
+                    />
+                </div>
+                <button type="submit" className="login-btn">Ingresar</button>
+            </form>
+        </div>
+    );
+};
 
 export default Login;

@@ -1,25 +1,26 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import './Item.css';
+import { useAppContext } from '../../context/AppContext'; // Modificación
 
 function Item({ producto }) {
+  const { addToCart } = useAppContext(); // Modificación
+
   const handleAddToCart = () => {
-    
-    alert(`¡${producto.titulo} ha sido añadido al carrito!`);
-    console.log(`Agregado al carrito: ${producto.titulo}`);
+    addToCart(producto); // Modificación
   }
 
   return (
-    <Card className=" item-card">
-      <div className="item-img-container"> 
+    <Card className="item-card">
+      <div className="item-img-container">
         <Card.Img
           variant="top"
           src={producto.img}
           alt={producto.titulo}
           className="item-img"
         />
-        
+
         <Link to={`/item/${producto.id}`} className="item-details-overlay">
           <span className="item-details-text" >Ver Detalles </span>
         </Link>
@@ -35,7 +36,7 @@ function Item({ producto }) {
         <Card.Text className="item-desc">
           {producto.descripcion}
         </Card.Text>
-        <div className=" btn">
+        <div className="btn">
           <Button
             variant="primary"
             onClick={handleAddToCart}
