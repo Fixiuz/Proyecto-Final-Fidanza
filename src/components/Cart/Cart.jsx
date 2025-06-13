@@ -23,7 +23,7 @@ function Cart() {
           <ul className="cart-list">
             {cart.map((item) => (
               <li key={item.id} className="cart-item">
-                <img src={item.imagen} alt={item.titulo} className="cart-item-img" /> {/* Modificación */}
+                <img src={item.img} alt={item.titulo} className="cart-item-img" /> {/* Modificación */}
                 <div className="cart-item-info">
                   <h4>{item.titulo}</h4> {/* Modificación */}
                   <p>{item.descripcion}</p>

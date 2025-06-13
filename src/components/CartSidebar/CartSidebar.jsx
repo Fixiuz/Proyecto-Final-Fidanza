@@ -34,7 +34,7 @@ function CartSidebar() {
       <ul>
         {cart.map(item => (
           <li key={item.id} className="cart-sidebar-item">
-            <img src={item.imagen} alt={item.titulo} className="mini-img" />
+            <img src={item.img} alt={item.titulo} className="mini-img" />
             <div>
               <p>{item.titulo}</p>
               <p>
