@@ -82,35 +82,41 @@ export const AppProvider = ({ children }) => {
     });
   };
 
-  const crearOrden = (datosComprador, onSuccess, onError) => {
-    try {
-      const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-      const orden = {
-        comprador: datosComprador,
-        items: cart.map(item => ({
-          id: item.id,
-          titulo: item.titulo, // Aseguramos el nombre correcto
-          precio: item.precio,
-          quantity: item.quantity
-        })),
-        total: total.toFixed(2),
-        fecha: new Date().toISOString()
-      };
-      
-      const ordenId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      
-      console.log("Orden creada (simulado):", ordenId, orden);
+  const crearOrden = (datosCheckout, onSuccess, onError) => {
+  try {
+    const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+    const orden = {
+      // Modificación: separamos datos del comprador y del pago
+      comprador: {
+        nombre: datosCheckout.nombreTitular,
+        email: datosCheckout.email,
+        telefono: datosCheckout.telefono,
+      },
+      pago: {
+        metodo: 'Tarjeta de Crédito/Débito',
+        // Guardamos el número de tarjeta de forma segura (solo los últimos 4 dígitos)
+        numero: `**** **** **** ${datosCheckout.numeroTarjeta.slice(-4)}`
+      },
+      items: cart.map(item => ({
+        id: item.id,
+        titulo: item.titulo,
+        precio: item.precio,
+        quantity: item.quantity
+      })),
+      total: total.toFixed(2),
+      fecha: new Date().toISOString()
+    };
+    
+    const ordenId = `ORD-${Date.now()}`;
+    console.log("Orden creada:", ordenId, orden);
 
-      // Limpiamos el carrito después de crear la orden
-      clearCart();
-      
-      // Llamamos al callback de éxito
-      onSuccess(ordenId, orden);
+    clearCart();
+    onSuccess(ordenId, orden);
 
-    } catch (error) {
-      console.error("Error al crear la orden:", error);
-      onError(error);
-    }
+  } catch (error) {
+    console.error("Error:", error);
+    onError(error);
+  }
   };
 
 

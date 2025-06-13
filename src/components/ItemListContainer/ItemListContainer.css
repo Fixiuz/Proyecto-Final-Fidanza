@@ -1,3 +1,5 @@
+/* src/components/ItemListContainer/ItemListContainer.css - Ajustado */
+
 @import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
 
 .item-list-container {
@@ -13,86 +15,74 @@
   font-family: 'Chokokutai', sans-serif;
 }
 
-.item-list-loading {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #666;
-  
-}
-
-
+/* Modificación: Volvemos a 4 columnas para dar más anchura a los items */
 .item-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
 }
+
+/* --- Responsive Design (Ajustado) --- */
 @media (max-width: 1200px) {
   .item-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media (max-width: 900px) {
   .item-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (max-width: 600px) {
   .item-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Botón "Ver más" */
-.item-btn {
-  background-color: #0d6efd;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 0.3rem;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.item-btn:hover {
-  background-color: #084298;
-  cursor: pointer;
-}
-
-/* Estilo para el sidebar */
+/* --- Sidebar (se mantiene igual) --- */
 .sidebar {
-  background-color: #f8f9fa; 
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 100px;
 }
-
+/* ... (el resto de los estilos del sidebar se mantienen igual) ... */
 .sidebar h5,
 .sidebar h6 {
   font-weight: 600;
   margin-bottom: 12px;
-  color: #343a40;
+  color: #1c3d5a;
 }
 
 .sidebar .form-control,
 .sidebar .form-select {
   border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 .sidebar .list-group-item {
   border: none;
+  background-color: transparent;
   transition: background-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
   font-weight: 500;
+  border-radius: 8px;
+  margin-bottom: 0.25rem;
+  color: #34495e;
 }
 
 .sidebar .list-group-item:hover {
-  background-color: #e9ecef;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .sidebar .list-group-item.active {
-  background-color: #000 !important;  
+  background-color: #1c3d5a !important;
   color: #fff;
   font-weight: 600;
 }
-

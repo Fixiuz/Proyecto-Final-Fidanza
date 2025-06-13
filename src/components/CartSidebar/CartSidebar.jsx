@@ -1,3 +1,5 @@
+// En: src/components/CartSidebar/CartSidebar.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { useLocation, Link } from 'react-router-dom';
@@ -6,24 +8,18 @@ import './CartSidebar.css';
 function CartSidebar() {
   const [hasOpened, setHasOpened] = useState(false);
   const { cart, updateItemQuantity, removeFromCart } = useAppContext();
-  const { pathname } = useLocation(); // Modificación: Obtenemos el path actual
-
-  // Modificación: Determinamos si estamos en una página donde el sidebar puede mostrarse
+  const { pathname } = useLocation();
   const isCatalogArea = pathname.startsWith('/catalogo') || pathname.startsWith('/item');
 
   useEffect(() => {
-    // Si estamos en un área de catálogo, hay productos y nunca se abrió, lo abrimos
     if (isCatalogArea && cart.length > 0 && !hasOpened) {
       setHasOpened(true);
     }
-    
-    // Si salimos del área de catálogo o el carrito se vacía, lo reseteamos para que se oculte
     if (!isCatalogArea || cart.length === 0) {
       setHasOpened(false);
     }
-  }, [cart.length, hasOpened, isCatalogArea]); // Modificación: Dependemos de la nueva variable
+  }, [cart.length, hasOpened, isCatalogArea]);
 
-  // Modificación: Condición de renderizado más estricta
   if (!hasOpened) {
     return null;
   }
@@ -34,7 +30,7 @@ function CartSidebar() {
       <ul>
         {cart.map(item => (
           <li key={item.id} className="cart-sidebar-item">
-            <img src={item.img} alt={item.titulo} className="mini-img" />
+            <img src={item.img} alt={item.titulo} className="mini-img" /> {/* Modificación */}
             <div>
               <p>{item.titulo}</p>
               <p>

@@ -1,57 +1,120 @@
+/* src/components/Factura/Factura.css - Rediseño Profesional */
+
+/* --- Contenedor Principal (Efecto Glasmorphismo) --- */
 .factura-container {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .factura-container h2 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-  
-  .factura-container p,
-  .factura-container li {
-    color: #444;
-    font-size: 1rem;
-    margin: 0.5rem 0;
-  }
-  
-  .factura-container ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .btn-descargar,
-  .btn-volver {
-    margin: 1rem 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .btn-descargar {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .btn-descargar:hover {
-    background-color: #218838;
-  }
-  
-  .btn-volver {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .btn-volver:hover {
-    background-color: #5a6268;
-  }
-  
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 3rem;
+  font-family: 'Poppins', 'Verdana', sans-serif;
+
+  /* Efecto de cristal sutil */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  text-align: left; /* Alineamos a la izquierda para un look más formal */
+  color: #1c3d5a;
+}
+
+.factura-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.factura-header .icon {
+  font-size: 4rem;
+  color: #28a745; /* Verde de éxito */
+}
+
+.factura-header h2 {
+  color: #1c3d5a;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.factura-header p {
+  color: #5a6e80;
+  font-size: 1.1rem;
+}
+
+.factura-details, .factura-items, .factura-total {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.factura-details h3, .factura-items h3, .factura-total h3 {
+  color: #1c3d5a;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.factura-details p, .factura-items li {
+  color: #34495e;
+  margin-bottom: 0.5rem;
+}
+
+.factura-details strong {
+  color: #1c3d5a;
+}
+
+.factura-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.factura-items li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.factura-total {
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* --- Botones --- */
+.factura-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.btn-descargar, .btn-volver {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.btn-descargar {
+  background: #28a745;
+  color: white;
+}
+.btn-descargar:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-volver {
+  background: #6c757d;
+  color: white;
+}
+.btn-volver:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}

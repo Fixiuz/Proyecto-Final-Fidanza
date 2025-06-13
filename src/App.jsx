@@ -15,7 +15,7 @@ import Cart from './components/Cart/Cart';
 import CartSidebar from './components/CartSidebar/CartSidebar'; // Modificación
 import CheckoutForm from './components/CheckoutForm/CheckoutForm'; // Modificación
 import Factura from './components/Factura/Factura'; // Modificación
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'; // Modificación
 
 function LandingPage() {
   return (
@@ -49,7 +49,14 @@ function App() {
           <main className="main-content">
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutForm />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/about" element={<Hero />} />
               <Route path="/catalogo" element={<ItemListContainer />} />
               <Route path="/contact" element={<ContactForm />} />
