@@ -1,6 +1,6 @@
-/* src/components/Item/Item.css - Ajustado para proporción cuadrada */
+/* src/components/Item/Item.css - Con selector de botón a prueba de fallos */
 
-/* --- Tarjeta Principal (se mantiene igual) --- */
+/* --- Tarjeta Principal --- */
 .item-card {
   border: none;
   border-radius: 16px;
@@ -17,24 +17,28 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Contenedor de la Imagen (se mantiene igual) --- */
+/* --- Contenedor de la Imagen y Overlay --- */
 .item-img-container {
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 4 / 3;
 }
-
-/* Modificación: Proporción cuadrada para la imagen */
 .item-img {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Esto hace que la imagen sea un cuadrado perfecto */
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
   transition: transform 0.4s ease;
+  border-radius: 12px;
 }
 .item-card:hover .item-img {
   transform: scale(1.05);
 }
 
-/* --- Overlay y Cuerpo de la tarjeta (se mantienen igual) --- */
+/* --- Overlay y Cuerpo de la tarjeta (sin cambios) --- */
+/* ... (aquí van los estilos de .item-details-overlay, .item-title, etc., que se mantienen igual) ... */
 .item-details-overlay {
   position: absolute;
   top: 0;
@@ -62,41 +66,54 @@
   transform: translateY(-10px);
 }
 .item-card-body {
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem; 
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .item-title {
-  font-size: 1.1rem;
+  font-size: 1rem; 
   font-weight: 600;
   color: #1c3d5a;
   margin-bottom: 0.25rem;
 }
 .item-price {
-  font-size: 1.3rem;
+  font-size: 1.2rem; 
   font-weight: 700;
   color: #0d6efd;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 .item-desc {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #5a6e80;
   flex-grow: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
-.item-btn {
+
+/* --- Contenedor del Botón --- */
+.item-btn-container {
+  margin-top: auto;
+}
+
+/* Modificación: Selector más específico para anular Bootstrap */
+.item-card .item-btn {
   width: 100%;
-  background-color: #1c3d5a;
-  color: white;
-  border: none;
-  padding: 10px 0;
-  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: #ffffff;
+  background-color: #4f5a1c; /* Tu color original */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.item-btn:hover {
-  background-color: #0d6efd;
+
+.item-card .item-btn:hover {
+  background-color: #0d6efd; /* Tu color de realce */
   transform: scale(1.03);
 }
-.btn {
-    padding: 0;
-    margin-top: auto;
-}
+
+/* Modificación: Se elimina la regla .btn conflictiva */
+/* .btn { ... } */

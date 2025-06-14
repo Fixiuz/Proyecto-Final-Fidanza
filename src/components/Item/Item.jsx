@@ -1,14 +1,14 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap'; // Se mantiene Card, pero no Button
 import { Link } from 'react-router-dom';
 import './Item.css';
-import { useAppContext } from '../../context/AppContext'; // Modificación
+import { useAppContext } from '../../context/AppContext';
 
 function Item({ producto }) {
-  const { addToCart } = useAppContext(); // Modificación
+  const { addToCart } = useAppContext();
 
   const handleAddToCart = () => {
-    addToCart(producto); // Modificación
+    addToCart(producto);
   }
 
   return (
@@ -20,9 +20,8 @@ function Item({ producto }) {
           alt={producto.titulo}
           className="item-img"
         />
-
         <Link to={`/item/${producto.id}`} className="item-details-overlay">
-          <span className="item-details-text" >Ver Detalles </span>
+          <span className="item-details-text">Ver Detalles</span>
         </Link>
       </div>
       <Card.Body className="d-flex flex-column item-card-body">
@@ -32,18 +31,15 @@ function Item({ producto }) {
         <Card.Subtitle className="mb-2 text-muted item-price">
           ${producto.precio}
         </Card.Subtitle>
-
         <Card.Text className="item-desc">
           {producto.descripcion}
         </Card.Text>
-        <div className="btn">
-          <Button
-            variant="primary"
-            onClick={handleAddToCart}
-            className="w-10 item-btn"
-          >
+        
+        {/* Usamos un div contenedor para el botón */}
+        <div className="item-btn-container">
+          <button onClick={handleAddToCart} className="item-btn">
             Agregar al carrito
-          </Button>
+          </button>
         </div>
       </Card.Body>
     </Card>

@@ -28,13 +28,6 @@ function ItemListContainer() {
     setLimite(12);
   }, [categoriaFromUrl]);
 
-  // Modificación: Se elimina el useEffect que hacía el fetch.
-  // useEffect(() => {
-  //   setCargando(true);
-  //   fetch(...)
-  //   ...
-  // }, []);
-
   const categorias = useMemo(
     () => [...new Set(productos.map(p => p.categoria))].sort(),
     [productos] // Modificación: Ahora depende de los productos del contexto

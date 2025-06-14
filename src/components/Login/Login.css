@@ -1,0 +1,102 @@
+/* En src/components/Login/Login.css */
+
+.login-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 80vh;
+}
+
+.login-mascot {
+  margin-bottom: -60px; /* Hace que el búho se superponga con el formulario */
+  z-index: 10;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-page-container:has(:focus-within) .login-mascot {
+  transform: scale(1.05); /* Agranda un poco el búho cuando el form tiene foco */
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 4rem 2.5rem 2.5rem 2.5rem; /* Más padding arriba para el búho */
+  font-family: 'Poppins', 'Verdana', sans-serif;
+  
+  /* Efecto Glasmorphismo */
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  color: #1c3d5a;
+}
+
+.login-container h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.login-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  color: #1c3d5a;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #1c3d5a;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.login-btn:hover {
+  background-color: #0d6efd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+}
