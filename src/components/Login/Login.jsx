@@ -3,42 +3,56 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import './Login.css';
 
-// --- Sub-componente para la Mascota PINGÜINO MEJORADO ---
+// --- Sub-componente para la Mascota (PINGÜINO) ---
 const LoginMascot = ({ state }) => {
+  // state puede ser: 'idle', 'hiding', 'peeking'
+
   const idleSvg = (
-    <svg width="140" height="140" viewBox="0 0 200 200">
-      <g>
-        <path d="M100 180 C138.66 180 170 148.66 170 110 C170 71.34 138.66 40 100 40 C61.34 40 30 71.34 30 110 C30 148.66 61.34 180 100 180 Z" fill="#34495e"/>
-        <path d="M100 170 C133.137 170 160 143.137 160 110 C160 76.863 133.137 50 100 50 C66.863 50 40 76.863 40 110 C40 143.137 66.863 170 100 170 Z" fill="#ecf0f1"/>
-        <circle cx="80" cy="95" r="12" fill="white"/><circle cx="120" cy="95" r="12" fill="white"/>
-        <circle cx="82" cy="98" r="6" fill="#2c3e50"/><circle cx="118" cy="98" r="6" fill="#2c3e50"/>
-        <path d="M95 110 L105 110 L100 125 Z" fill="#f39c12"/>
-        <path d="M30 110 C10 120 10 140 30 150 L45 140 C35 130 35 120 40 110 Z" fill="#2c3e50"/>
-        <path d="M170 110 C190 120 190 140 170 150 L155 140 C165 130 165 120 160 110 Z" fill="#2c3e50"/>
-      </g>
+    <svg width="120" height="120" viewBox="0 0 200 200">
+      {/* Cuerpo del Pingüino */}
+      <path d="M 100,20 C 70,20 50,50 50,90 C 50,150 70,180 100,180 C 130,180 150,150 150,90 C 150,50 130,20 100,20 Z" fill="#2c3e50"/>
+      {/* Panza Blanca */}
+      <path d="M 100,50 C 80,50 70,70 70,90 C 70,130 80,150 100,150 C 120,150 130,130 130,90 C 130,70 120,50 100,50 Z" fill="white"/>
+      {/* Ojos */}
+      <circle cx="85" cy="80" r="10" fill="white"/>
+      <circle cx="115" cy="80" r="10" fill="white"/>
+      <circle cx="87" cy="82" r="5" fill="#2c3e50"/>
+      <circle cx="113" cy="82" r="5" fill="#2c3e50"/>
+      {/* Pico */}
+      <path d="M 95,95 L 105,95 L 100,105 Z" fill="#f39c12"/>
+      {/* Aletas */}
+      <path d="M 50,90 C 30,110 30,130 50,140 L 60,130 C 50,125 50,115 55,100 Z" fill="#2c3e50"/>
+      <path d="M 150,90 C 170,110 170,130 150,140 L 140,130 C 150,125 150,115 145,100 Z" fill="#2c3e50"/>
     </svg>
   );
+
   const hidingSvg = (
-    <svg width="140" height="140" viewBox="0 0 200 200">
-      <g>
-        <path d="M100 180 C138.66 180 170 148.66 170 110 C170 71.34 138.66 40 100 40 C61.34 40 30 71.34 30 110 C30 148.66 61.34 180 100 180 Z" fill="#34495e"/>
-        <path d="M100 170 C133.137 170 160 143.137 160 110 C160 76.863 133.137 50 100 50 C66.863 50 40 76.863 40 110 C40 143.137 66.863 170 100 170 Z" fill="#ecf0f1"/>
-        <path d="M95 110 L105 110 L100 125 Z" fill="#f39c12"/>
-        <path d="M30 110 C45 80 80 70 95 85 L85 105 C70 95 45 95 30 110 Z" fill="#2c3e50" transform="rotate(-5 80 95)" />
-        <path d="M170 110 C155 80 120 70 105 85 L115 105 C130 95 155 95 170 110 Z" fill="#2c3e50" transform="rotate(5 120 95)" />
-      </g>
+    <svg width="120" height="120" viewBox="0 0 200 200">
+      {/* Cuerpo y Panza (igual) */}
+      <path d="M 100,20 C 70,20 50,50 50,90 C 50,150 70,180 100,180 C 130,180 150,150 150,90 C 150,50 130,20 100,20 Z" fill="#2c3e50"/>
+      <path d="M 100,50 C 80,50 70,70 70,90 C 70,130 80,150 100,150 C 120,150 130,130 130,90 C 130,70 120,50 100,50 Z" fill="white"/>
+      {/* Aletas cubriendo los ojos */}
+      <path d="M 50,90 C 60,70 90,65 100,75 L 100,95 C 90,105 60,110 50,90 Z" fill="#2c3e50" transform="rotate(-10 100 100)"/>
+      <path d="M 150,90 C 140,70 110,65 100,75 L 100,95 C 110,105 140,110 150,90 Z" fill="#2c3e50" transform="rotate(10 100 100)"/>
+      {/* Pico */}
+      <path d="M 95,95 L 105,95 L 100,105 Z" fill="#f39c12"/>
     </svg>
   );
-   const peekingSvg = (
-    <svg width="140" height="140" viewBox="0 0 200 200">
-       <g>
-        <path d="M100 180 C138.66 180 170 148.66 170 110 C170 71.34 138.66 40 100 40 C61.34 40 30 71.34 30 110 C30 148.66 61.34 180 100 180 Z" fill="#34495e"/>
-        <path d="M100 170 C133.137 170 160 143.137 160 110 C160 76.863 133.137 50 100 50 C66.863 50 40 76.863 40 110 C40 143.137 66.863 170 100 170 Z" fill="#ecf0f1"/>
-        <circle cx="120" cy="95" r="12" fill="white"/><circle cx="118" cy="98" r="6" fill="#2c3e50"/>
-        <path d="M95 110 L105 110 L100 125 Z" fill="#f39c12"/>
-        <path d="M30 110 C45 80 80 70 95 85 L85 105 C70 95 45 95 30 110 Z" fill="#2c3e50" transform="rotate(-5 80 95)" />
-        <path d="M170 110 C190 120 190 140 170 150 L155 140 C165 130 165 120 160 110 Z" fill="#2c3e50"/>
-      </g>
+
+  const peekingSvg = (
+    <svg width="120" height="120" viewBox="0 0 200 200">
+       {/* Cuerpo y Panza (igual) */}
+      <path d="M 100,20 C 70,20 50,50 50,90 C 50,150 70,180 100,180 C 130,180 150,150 150,90 C 150,50 130,20 100,20 Z" fill="#2c3e50"/>
+      <path d="M 100,50 C 80,50 70,70 70,90 C 70,130 80,150 100,150 C 120,150 130,130 130,90 C 130,70 120,50 100,50 Z" fill="white"/>
+      {/* Aleta izquierda cubriendo */}
+      <path d="M 50,90 C 60,70 90,65 100,75 L 100,95 C 90,105 60,110 50,90 Z" fill="#2c3e50" transform="rotate(-10 100 100)"/>
+      {/* Ojo derecho visible */}
+      <circle cx="115" cy="80" r="10" fill="white"/>
+      <circle cx="113" cy="82" r="5" fill="#2c3e50"/>
+      {/* Pico */}
+      <path d="M 95,95 L 105,95 L 100,105 Z" fill="#f39c12"/>
+      {/* Aleta derecha */}
+      <path d="M 150,90 C 170,110 170,130 150,140 L 140,130 C 150,125 150,115 145,100 Z" fill="#2c3e50"/>
     </svg>
   );
 
@@ -47,15 +61,19 @@ const LoginMascot = ({ state }) => {
   return idleSvg;
 };
 
+
 // --- Componente Principal ---
 const Login = () => {
   const [nombre, setNombre] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { login } = useAppContext();
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useAppContext();
+
+  // --- Estados para la animación ---
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (e) => {
@@ -68,52 +86,52 @@ const Login = () => {
     }
   };
 
+  // Determinar el estado de la mascota
   let mascotState = 'idle';
-  if (isPasswordFocused) mascotState = 'hiding';
-  if (isPasswordVisible) mascotState = 'peeking';
+  if (isPasswordFocused) {
+    mascotState = 'hiding';
+  }
+  if (isPasswordVisible) {
+    mascotState = 'peeking';
+  }
 
   return (
-    <div className="login-final-background">
-      <div className="login-final-container">
-        <div className="login-final-mascot">
-          <LoginMascot state={mascotState} />
-        </div>
-        
-        <h2>Bienvenido de Vuelta</h2>
-        <p className="subtitle">Ingresa tus credenciales para continuar</p>
-
-        <form onSubmit={handleSubmit} className="login-final-form">
-          <div className="form-group">
-            <input
-              type="text"
-              id="nombre"
-              className="form-input"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-            />
-            <label htmlFor="nombre" className="form-label">Usuario</label>
-          </div>
-          <div className="form-group">
-            <input
-              type={isPasswordVisible ? 'text' : 'password'}
-              id="contrasena"
-              className="form-input"
-              value={contrasena}
-              onChange={(e) => setContrasena(e.target.value)}
-              onFocus={() => setIsPasswordFocused(true)}
-              onBlur={() => setIsPasswordFocused(false)}
-              required
-            />
-            <label htmlFor="contrasena" className="form-label">Contraseña</label>
-            <span className="password-toggle-icon" onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-              {isPasswordVisible ? '🙈' : '👁️'}
-            </span>
-          </div>
-          <button type="submit" className="login-final-btn">
-            Ingresar
-          </button>
-        </form>
+    <div className="login-page-container">
+      <div className="login-mascot">
+        <LoginMascot state={mascotState} />
+      </div>
+      <div className="login-container">
+          <h2>Iniciar Sesión</h2>
+          <form onSubmit={handleSubmit} className="login-form">
+              <div className="form-group">
+                  <label htmlFor="nombre">Nombre de Usuario</label>
+                  <input
+                      type="text"
+                      id="nombre"
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                      required
+                  />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="contrasena">Contraseña</label>
+                  <div className="password-wrapper">
+                    <input
+                        type={isPasswordVisible ? 'text' : 'password'}
+                        id="contrasena"
+                        value={contrasena}
+                        onChange={(e) => setContrasena(e.target.value)}
+                        onFocus={() => setIsPasswordFocused(true)}
+                        onBlur={() => setIsPasswordFocused(false)}
+                        required
+                    />
+                    <span className="password-toggle-icon" onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+                      {isPasswordVisible ? '🙈' : '👁️'}
+                    </span>
+                  </div>
+              </div>
+              <button type="submit" className="login-btn">Ingresar</button>
+          </form>
       </div>
     </div>
   );
