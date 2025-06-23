@@ -3,16 +3,11 @@ import Item from '../Item/Item';
 import './ItemListContainer.css';
 import { Container, Row, Col, Form, ListGroup, Spinner, Alert, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import { useAppContext } from '../../context/AppContext'; // Modificación
+import { useAppContext } from '../../context/AppContext';
 
 function ItemListContainer() {
-  // Modificación: Se eliminan los estados de productos, cargando y error.
-  // const [productos, setProductos] = useState([]);
-  // const [cargando, setCargando] = useState(true);
-  // const [error, setError] = useState(null);
-
-  const { products: productos, loading: cargando, error } = useAppContext(); // Modificación
-
+  const { products: productos, loading: cargando, error } = useAppContext();
+  
   const [limite, setLimite] = useState(12);
   const [orden, setOrden] = useState('');
   const [busqueda, setBusqueda] = useState('');
@@ -30,7 +25,7 @@ function ItemListContainer() {
 
   const categorias = useMemo(
     () => [...new Set(productos.map(p => p.categoria))].sort(),
-    [productos] // Modificación: Ahora depende de los productos del contexto
+    [productos]
   );
 
   const productosFiltrados = useMemo(() => {
@@ -38,8 +33,10 @@ function ItemListContainer() {
 
     if (busqueda.trim()) {
       filtrados = filtrados.filter(p =>
-        p.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-        p.descripcion.toLowerCase().includes(busqueda.toLowerCase())
+        // Modificación: Se usa encadenamiento opcional (?.) para evitar errores
+        // si 'titulo' o 'descripcion' no existen en algún producto.
+        p.titulo?.toLowerCase().includes(busqueda.toLowerCase()) ||
+        p.descripcion?.toLowerCase().includes(busqueda.toLowerCase())
       );
     }
 
@@ -62,7 +59,7 @@ function ItemListContainer() {
     }
 
     return filtrados;
-  }, [productos, busqueda, categoriaSeleccionada, orden]); // Modificación
+  }, [productos, busqueda, categoriaSeleccionada, orden]);
 
   const mostrarMas = () => {
     setLimite(prev => prev + 12);
@@ -70,19 +67,16 @@ function ItemListContainer() {
 
   return (
     <Container fluid className="mt-4">
-      
       <h2 className="item-list-title">
         {categoriaSeleccionada ? `Productos de ${categoriaSeleccionada}` : 'Novedades'}
       </h2>
-
       <Row>
         {/* Sidebar */}
         <Col md={3}>
           <div className="sidebar p-3 border rounded bg-light mb-4">
             <h5>Filtrar y ordenar</h5>
-
             <Form.Group className="mb-3">
-              <Form.Label>Buscar</Form.Label>
+              
               <Form.Control
                 type="text"
                 placeholder="Buscar por nombre o descripción"
@@ -91,9 +85,8 @@ function ItemListContainer() {
                 aria-label="Buscar productos por nombre"
               />
             </Form.Group>
-
             <Form.Group className="mb-3">
-              <Form.Label>Ordenar por</Form.Label>
+              
               <Form.Select
                 value={orden}
                 onChange={e => setOrden(e.target.value)}
@@ -105,7 +98,6 @@ function ItemListContainer() {
                 <option value="precio">Precio</option>
               </Form.Select>
             </Form.Group>
-
             <h6>Categorías</h6>
             <ListGroup>
               <ListGroup.Item
@@ -139,7 +131,7 @@ function ItemListContainer() {
           ) : error ? (
             <Alert variant="danger">{error}</Alert>
           ) : productosFiltrados.length === 0 ? (
-            <Alert variant="warning">No se encontraron productos.</Alert>
+            <Alert variant="warning">No se encontraron productos para esta búsqueda.</Alert>
           ) : (
             <>
               <div className="item-grid">
@@ -149,7 +141,7 @@ function ItemListContainer() {
               </div>
               {productosFiltrados.length > limite && (
                 <div className="text-center mt-4">
-                  <Button onClick={mostrarMas}>Cargar más</Button> {/* Re-agregué el botón que parece faltar en tu código original */}
+                  <Button onClick={mostrarMas}>Cargar más</Button>
                 </div>
               )}
             </>

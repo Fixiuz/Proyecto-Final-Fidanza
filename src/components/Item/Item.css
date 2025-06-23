@@ -37,8 +37,7 @@
   transform: scale(1.05);
 }
 
-/* --- Overlay y Cuerpo de la tarjeta (sin cambios) --- */
-/* ... (aquí van los estilos de .item-details-overlay, .item-title, etc., que se mantienen igual) ... */
+
 .item-details-overlay {
   position: absolute;
   top: 0;
@@ -90,19 +89,17 @@
   margin-bottom: 0.75rem;
 }
 
-/* --- Contenedor del Botón --- */
 .item-btn-container {
   margin-top: auto;
 }
 
-/* Modificación: Selector más específico para anular Bootstrap */
 .item-card .item-btn {
   width: 100%;
   padding: 12px 15px;
   font-size: 0.95rem;
   font-weight: 600;
   color: #ffffff;
-  background-color: #4f5a1c; /* Tu color original */
+  background-color: #1C3D5A; 
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -111,9 +108,7 @@
 }
 
 .item-card .item-btn:hover {
-  background-color: #0d6efd; /* Tu color de realce */
+  background-color: #0d6efd; 
   transform: scale(1.03);
 }
 
-/* Modificación: Se elimina la regla .btn conflictiva */
-/* .btn { ... } */

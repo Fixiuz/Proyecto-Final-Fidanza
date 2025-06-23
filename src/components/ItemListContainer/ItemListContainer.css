@@ -1,4 +1,4 @@
-/* src/components/ItemListContainer/ItemListContainer.css - Ajustado */
+/* src/components/ItemListContainer/ItemListContainer.css - Corregido */
 
 @import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
 
@@ -15,14 +15,13 @@
   font-family: 'Chokokutai', sans-serif;
 }
 
-/* Modificación: Volvemos a 4 columnas para dar más anchura a los items */
 .item-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
 
-/* --- Responsive Design (Ajustado) --- */
+/* --- Responsive Design --- */
 @media (max-width: 1200px) {
   .item-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -39,7 +38,7 @@
   }
 }
 
-/* --- Sidebar (se mantiene igual) --- */
+
 .sidebar {
   padding: 1.5rem;
   border-radius: 16px;
@@ -50,12 +49,16 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 100px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; 
 }
-/* ... (el resto de los estilos del sidebar se mantienen igual) ... */
+
 .sidebar h5,
 .sidebar h6 {
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 0; 
   color: #1c3d5a;
 }
 
