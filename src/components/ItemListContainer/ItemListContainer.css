@@ -1,5 +1,3 @@
-/* src/components/ItemListContainer/ItemListContainer.css - Corregido */
-
 @import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
 
 .item-list-container {
@@ -12,32 +10,40 @@
   margin-bottom: 5rem;
   margin-top: 5rem;
   color: #404040;
-  font-family: 'Chokokutai', sans-serif;
+  font-family: 'orbitron', sans-serif;
 }
 
 .item-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  transition: grid-template-columns 0.4s ease-in-out;
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 1200px) {
-  .item-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.item-grid.sidebar-open {
+  grid-template-columns: repeat(3, 1fr);
 }
-@media (max-width: 900px) {
-  .item-grid {
+
+@media (max-width: 1400px) {
+  .item-grid.sidebar-open {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 992px) {
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .item-grid.sidebar-open {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .item-grid {
     grid-template-columns: 1fr;
   }
 }
-
 
 .sidebar {
   padding: 1.5rem;
@@ -49,16 +55,15 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 100px;
-  
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; 
+  gap: 1.25rem;
 }
 
 .sidebar h5,
 .sidebar h6 {
   font-weight: 600;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   color: #1c3d5a;
 }
 

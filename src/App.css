@@ -1,4 +1,7 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+ 
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -82,4 +85,27 @@ button.item-btn {
 
 button.item-btn:hover {
   background-color: #4a54e1;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px;
+  transition: padding-right 0.4s ease-in-out;
+}
+
+.app-container.sidebar-active .main-content {
+  padding-right: 320px; 
+}
+
+@media (max-width: 768px) {
+  .app-container.sidebar-active .main-content {
+    padding-right: 0; 
+  }
 }

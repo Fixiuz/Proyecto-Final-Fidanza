@@ -1,4 +1,4 @@
-/* src/components/Item/Item.css - Con selector de botón a prueba de fallos */
+/* src/components/Item/Item.css - Corregido para proporción y botón */
 
 /* --- Tarjeta Principal --- */
 .item-card {
@@ -7,10 +7,12 @@
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgb(255, 255, 255);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
 }
 .item-card:hover {
   transform: translateY(-8px);
@@ -21,23 +23,23 @@
 .item-img-container {
   position: relative;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 4 / 3;
+  /* Modificación: Volvemos a una proporción cuadrada para que la tarjeta no sea tan alta */
+  aspect-ratio: 16 / 9; /* Proporción 4:3 */
 }
+
 .item-img {
   width: 100%;
   height: 100%;
+  /* Usamos 'contain' para que la imagen se vea completa */
   object-fit: contain;
+  padding: 1rem; /* Damos un poco de aire a la imagen */
   transition: transform 0.4s ease;
-  border-radius: 12px;
 }
 .item-card:hover .item-img {
   transform: scale(1.05);
 }
 
-
+/* --- Overlay "Ver Detalles" --- */
 .item-details-overlay {
   position: absolute;
   top: 0;
@@ -64,51 +66,58 @@
 .item-card:hover .item-details-text {
   transform: translateY(-10px);
 }
+
+/* --- Cuerpo de la Tarjeta --- */
 .item-card-body {
-  padding: 0.75rem 1rem; 
+  padding: 0.75rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 .item-title {
-  font-size: 1rem; 
+  font-size: 1rem;
   font-weight: 600;
   color: #1c3d5a;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .item-price {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   font-weight: 700;
   color: #0d6efd;
   margin-bottom: 0.5rem;
 }
 .item-desc {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #5a6e80;
   flex-grow: 1;
   margin-bottom: 0.75rem;
 }
 
+/* --- Contenedor del Botón --- */
 .item-btn-container {
   margin-top: auto;
 }
 
-.item-card .item-btn {
+/* Modificación: Ajustes finales para el botón */
+.item-btn-container .item-btn {
   width: 100%;
-  padding: 12px 15px;
-  font-size: 0.95rem;
+  padding: 10px 5px;   /* Reducimos el padding horizontal */
+  font-size: 0.9rem;   /* Reducimos la fuente ligeramente */
   font-weight: 600;
   color: #ffffff;
-  background-color: #1C3D5A; 
+  background-color: #1c3d5a;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap; /* Evita que el texto se divida */
 }
 
-.item-card .item-btn:hover {
-  background-color: #0d6efd; 
-  transform: scale(1.03);
+.item-btn:hover {
+  background-color: #0d6efd;
+  transform: scale(1.02);
 }
-

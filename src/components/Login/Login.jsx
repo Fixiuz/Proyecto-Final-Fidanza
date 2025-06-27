@@ -19,7 +19,7 @@ const LoginMascot = ({ state }) => {
       <circle cx="87" cy="82" r="5" fill="#2c3e50"/>
       <circle cx="113" cy="82" r="5" fill="#2c3e50"/>
       {/* Pico */}
-      <path d="M 95,95 L 105,95 L 100,105 Z" fill="#f39c12"/>
+      <path d="M 95,95 L 105,95 L 100,105 Z" fill="#ffff00"/>
       {/* Aletas */}
       <path d="M 50,90 C 30,110 30,130 50,140 L 60,130 C 50,125 50,115 55,100 Z" fill="#2c3e50"/>
       <path d="M 150,90 C 170,110 170,130 150,140 L 140,130 C 150,125 150,115 145,100 Z" fill="#2c3e50"/>

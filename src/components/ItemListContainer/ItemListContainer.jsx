@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 function ItemListContainer() {
-  const { products: productos, loading: cargando, error } = useAppContext();
+  const { products: productos, loading: cargando, error, isSidebarOpen } = useAppContext();
   
   const [limite, setLimite] = useState(12);
   const [orden, setOrden] = useState('');
@@ -33,8 +33,6 @@ function ItemListContainer() {
 
     if (busqueda.trim()) {
       filtrados = filtrados.filter(p =>
-        // Modificación: Se usa encadenamiento opcional (?.) para evitar errores
-        // si 'titulo' o 'descripcion' no existen en algún producto.
         p.titulo?.toLowerCase().includes(busqueda.toLowerCase()) ||
         p.descripcion?.toLowerCase().includes(busqueda.toLowerCase())
       );
@@ -71,12 +69,11 @@ function ItemListContainer() {
         {categoriaSeleccionada ? `Productos de ${categoriaSeleccionada}` : 'Novedades'}
       </h2>
       <Row>
-        {/* Sidebar */}
         <Col md={3}>
           <div className="sidebar p-3 border rounded bg-light mb-4">
             <h5>Filtrar y ordenar</h5>
             <Form.Group className="mb-3">
-              
+              <Form.Label>Buscar</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Buscar por nombre o descripción"
@@ -86,7 +83,7 @@ function ItemListContainer() {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              
+              <Form.Label>Ordenar por</Form.Label>
               <Form.Select
                 value={orden}
                 onChange={e => setOrden(e.target.value)}
@@ -121,7 +118,6 @@ function ItemListContainer() {
           </div>
         </Col>
 
-        {/* Productos */}
         <Col md={9}>
           {cargando ? (
             <div className="text-center">
@@ -134,7 +130,7 @@ function ItemListContainer() {
             <Alert variant="warning">No se encontraron productos para esta búsqueda.</Alert>
           ) : (
             <>
-              <div className="item-grid">
+              <div className={`item-grid ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                 {productosFiltrados.slice(0, limite).map(producto => (
                   <Item key={producto.id} producto={producto} />
                 ))}
