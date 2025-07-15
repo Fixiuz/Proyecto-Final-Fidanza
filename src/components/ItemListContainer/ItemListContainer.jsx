@@ -69,7 +69,8 @@ function ItemListContainer() {
         {categoriaSeleccionada ? `Productos de ${categoriaSeleccionada}` : 'Novedades'}
       </h2>
       <Row>
-        <Col md={3}>
+        {/* Sidebar para Escritorio (Oculto en móvil) */}
+        <Col md={3} className="d-none d-md-block">
           <div className="sidebar p-3 border rounded bg-light mb-4">
             <h5>Filtrar y ordenar</h5>
             <Form.Group className="mb-3">
@@ -118,7 +119,24 @@ function ItemListContainer() {
           </div>
         </Col>
 
-        <Col md={9}>
+        {/* Columna principal para productos */}
+        <Col xs={12} md={9}>
+          {/* MODIFICACIÓN: Añadimos un selector de categorías visible solo en móvil */}
+          <div className="mobile-controls d-block d-md-none">
+            <Form.Group controlId="mobileCategorySelector">
+              <Form.Label>Selecciona una categoría</Form.Label>
+              <Form.Select
+                value={categoriaSeleccionada}
+                onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+              >
+                <option value="">Todas las categorías</option>
+                {categorias.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </div>
+
           {cargando ? (
             <div className="text-center">
               <Spinner animation="border" variant="primary" />

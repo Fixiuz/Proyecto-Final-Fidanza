@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import './App.css';
 import { AppProvider, useAppContext } from './context/AppContext';
 import NavBar from './components/NavBar/NavBar';
@@ -18,12 +20,23 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import CartSidebar from './components/CartSidebar/CartSidebar';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import ProductForm from './components/ProductForm/ProductForm'; 
+import SegundoSlider from './components/SegundoSlider/SegundoSlider'; 
+import SliderMarcas from './components/SliderMarcas/SliderMarcas'; 
+
+
 
 function LandingPage() {
   return (
     <>
+       <Helmet>
+        <title>TechLife - Inicio</title>
+        <meta name="description" content="Encuentra los mejores componentes y periféricos de tecnología en TechLife. Calidad y precio garantizados." />
+      </Helmet>
       <section id="quienes-somos">
         <Hero />
+      </section>
+      <section id="slider-marcas-uno">
+        <SliderMarcasUno />
       </section>
       <section id='ofertas'>
         <OfertasDestacadas />
@@ -31,9 +44,17 @@ function LandingPage() {
       <section id="categorias">
         <Categorias />
       </section>
+      <section id="segundo-slider">
+        <SegundoSlider />
+      </section>
+       <section id="slider-marcas">
+        <SliderMarcas />
+      </section>
+      
       <section id="contacto">
         <ContactForm />
       </section>
+     
     </>
   );
 }
@@ -71,9 +92,11 @@ function AppContent() {
 
 function App() {
   return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
+    <HelmetProvider>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </HelmetProvider>
   );
 }
 

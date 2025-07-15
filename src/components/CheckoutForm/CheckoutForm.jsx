@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // 1. Importamos SweetAlert2
 import { useAppContext } from '../../context/AppContext';
 import './CheckoutForm.css';
 
 function CheckoutForm() {
-  const { crearOrden, user } = useAppContext(); // Traemos el usuario logueado
+  const { crearOrden, user } = useAppContext();
   const navigate = useNavigate();
   
-  // Modificación: Nuevo estado para la pasarela de pago
   const [formData, setFormData] = useState({
-    nombreTitular: user ? user.name : '', // Pre-llenamos el nombre si el usuario existe
+    nombreTitular: user ? user.name : '',
     email: '',
     telefono: '',
     numeroTarjeta: '',
@@ -23,17 +23,39 @@ function CheckoutForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // 2. Modificamos la función handleSubmit para usar SweetAlert
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aquí iría la validación de los campos...
 
-    // Modificación: Pasamos todos los datos del formulario a crearOrden
-    crearOrden(formData, (ordenId, orden) => {
-      navigate(`/factura/${ordenId}`, { state: { ordenId, orden } });
-    }, (error) => {
+    // Definimos la función que se ejecutará si la orden se crea con éxito
+    const onSuccess = (ordenId, orden) => {
+      Swal.fire({
+        title: '¡Compra Realizada!',
+        text: `Tu pedido #${ordenId} ha sido procesado con éxito.`,
+        icon: 'success',
+        confirmButtonText: 'Ver Mi Factura',
+        allowOutsideClick: false // Evita que la alerta se cierre al hacer clic fuera
+      }).then((result) => {
+        // Cuando el usuario presiona el botón, lo redirigimos a la factura
+        if (result.isConfirmed) {
+          navigate(`/factura/${ordenId}`, { state: { ordenId, orden } });
+        }
+      });
+    };
+
+    // Definimos la función que se ejecutará si hay un error
+    const onError = (error) => {
       console.error('Error al procesar el pago:', error);
-      alert('Hubo un error al procesar el pago.');
-    });
+      Swal.fire({
+        title: 'Error en el Pago',
+        text: `Hubo un problema al procesar tu pago: ${error.message}`,
+        icon: 'error',
+      });
+    };
+
+    // Llamamos a crearOrden con los datos y las funciones de callback
+    crearOrden(formData, onSuccess, onError);
   };
 
   return (
@@ -67,7 +89,7 @@ function CheckoutForm() {
           </div>
           <div className="form-group">
             <label htmlFor="cvv">CVV</label>
-            <input type="password" name="cvv" placeholder="123" value={formData.cvv} onChange={handleChange} required />
+            <input name="cvv" placeholder="123" value={formData.cvv} onChange={handleChange} required />
           </div>
         </div>
 

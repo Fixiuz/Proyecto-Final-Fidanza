@@ -1,3 +1,5 @@
+/* src/components/ItemListContainer/ItemListContainer.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
 
 .item-list-container {
@@ -6,43 +8,23 @@
 
 .item-list-title {
   text-align: center;
-  font-size: 3rem;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  font-size: 2.5rem; /* Un poco más pequeño para móvil */
+  margin-bottom: 3rem;
+  margin-top: 3rem;
   color: #404040;
   font-family: 'orbitron', sans-serif;
 }
 
+/* MODIFICACIÓN: Añadimos estilos para el nuevo contenedor del selector móvil */
+.mobile-controls {
+  margin-bottom: 2rem;
+}
+
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  grid-template-columns: 1fr; /* Por defecto, siempre una columna */
+  gap: 1.5rem; /* Un poco menos de espacio en móvil */
   transition: grid-template-columns 0.4s ease-in-out;
-}
-
-.item-grid.sidebar-open {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 1400px) {
-  .item-grid.sidebar-open {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 992px) {
-  .item-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .item-grid.sidebar-open {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .item-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .sidebar {
@@ -66,14 +48,12 @@
   margin-bottom: 0;
   color: #1c3d5a;
 }
-
 .sidebar .form-control,
 .sidebar .form-select {
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.7);
   border-color: rgba(0, 0, 0, 0.1);
 }
-
 .sidebar .list-group-item {
   border: none;
   background-color: transparent;
@@ -84,13 +64,44 @@
   margin-bottom: 0.25rem;
   color: #34495e;
 }
-
 .sidebar .list-group-item:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
-
 .sidebar .list-group-item.active {
   background-color: #1c3d5a !important;
   color: #fff;
   font-weight: 600;
+}
+
+
+@media (min-width: 768px) {
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+    gap: 2rem;
+  }
+  .item-list-title {
+    font-size: 3rem; /* Restauramos el tamaño del título */
+  }
+}
+
+@media (min-width: 992px) {
+  .item-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas cuando aparece el sidebar de filtros */
+  }
+
+  /* Si el carrito lateral está abierto, reducimos a 2 columnas */
+  .item-grid.sidebar-open {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .item-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas muy anchas */
+  }
+
+  /* Si el carrito lateral está abierto, reducimos a 3 columnas */
+  .item-grid.sidebar-open {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

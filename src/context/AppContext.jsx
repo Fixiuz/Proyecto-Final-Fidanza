@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+// MODIFICACIÓN: Importamos el nuevo hook personalizado.
+import { useWindowSize } from '../hooks/useWindowSize';
 
 // 1. Creamos el contexto
 const AppContext = createContext();
@@ -30,6 +32,10 @@ export const AppProvider = ({ children }) => {
 
   // Estado para el Carrito Lateral (Sidebar)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // MODIFICACIÓN: Usamos el hook para obtener el tamaño de la ventana.
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // Definimos 768px como el punto de quiebre para móvil.
   
   // URL de la API
   const API_URL = 'https://682ebe91746f8ca4a47e1ee6.mockapi.io/Productos';
@@ -71,41 +77,26 @@ export const AppProvider = ({ children }) => {
   
   // Funciones CRUD para Productos
   const addProduct = async (productData) => {
-    // IMPORTANTE: Al crear un producto NUEVO (POST), NUNCA debemos enviar un 'id'.
-    // El servidor es quien debe generar el nuevo ID. Si por alguna razón el objeto
-    // 'productData' tiene un 'id' (por ejemplo, de un estado anterior), lo eliminamos.
     delete productData.id;
-
-    console.log("Enviando estos datos a la API:", productData); // Paso 1: Ver qué estamos enviando.
-
+    console.log("Enviando estos datos a la API:", productData);
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(productData),
       });
-
       if (!response.ok) {
-        // Paso 2: Si hay un error, intentamos obtener los detalles del servidor.
         let errorDetails = 'No se pudieron leer los detalles del error del servidor.';
         try {
-          // El servidor a menudo responde con un JSON que explica el error.
           const errorData = await response.json();
           errorDetails = JSON.stringify(errorData);
         } catch (e) {
-          // Si la respuesta de error no es JSON, la leemos como texto.
           errorDetails = await response.text();
         }
-        
-        // Lanzamos un error súper detallado que veremos en la consola.
         throw new Error(`Error del Servidor: ${response.status}. Detalles: ${errorDetails}`);
       }
-
-      // Si todo sale bien, recargamos los productos.
       await fetchProducts();
-
     } catch (error) {
-      // Re-lanzamos el error para que el formulario lo pueda atrapar y mostrar.
       console.error("Error final en addProduct:", error);
       throw error;
     }
@@ -119,7 +110,7 @@ export const AppProvider = ({ children }) => {
         body: JSON.stringify(productData),
       });
       if (!response.ok) throw new Error('Error al actualizar el producto');
-      await fetchProducts(); // Recargar productos
+      await fetchProducts();
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -127,19 +118,12 @@ export const AppProvider = ({ children }) => {
   };
 
   const deleteProduct = async (productId) => {
-    // Esta función ya no necesita try/catch.
-    // Su única responsabilidad es comunicarse con la API.
     const response = await fetch(`${API_URL}/${productId}`, {
       method: 'DELETE',
     });
-
-    // Si la respuesta no es exitosa, lanza un error que será
-    // capturado por la función que la llamó (en AdminPanel).
     if (!response.ok) {
       throw new Error('No se pudo eliminar el producto del servidor.');
     }
-
-    // Si todo salió bien, actualiza la lista de productos.
     await fetchProducts();
   };
 
@@ -154,6 +138,10 @@ export const AppProvider = ({ children }) => {
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
+    // MODIFICACIÓN: Solo abrimos el carrito lateral si NO estamos en un dispositivo móvil.
+    if (!isMobile) {
+      setIsSidebarOpen(true);
+    }
   };
 
   const removeFromCart = (productId) => {
@@ -198,13 +186,10 @@ export const AppProvider = ({ children }) => {
         total: total.toFixed(2),
         fecha: new Date().toISOString()
       };
-      
       const ordenId = `ORD-${Date.now()}`;
       console.log("Orden creada:", ordenId, orden);
-
       clearCart();
       onSuccess(ordenId, orden);
-
     } catch (error) {
       console.error("Error al crear la orden:", error);
       onError(error);
@@ -231,6 +216,7 @@ export const AppProvider = ({ children }) => {
     crearOrden,
     isSidebarOpen,
     setIsSidebarOpen,
+    isMobile,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

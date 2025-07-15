@@ -67,6 +67,7 @@
 }
 
 .navbar-center li a {
+  display: inline-block;
   color: #ffffff;
   text-decoration: none;
   font-size: 1rem; 
@@ -78,7 +79,9 @@
 
 .navbar-center li a:hover {
   
-  color: #0d6efd; 
+  color: #0D0D0D; 
+  transform :scale(1.2); 
+  font-weight: bold
 }
 
 .navbar-right {
@@ -102,7 +105,7 @@
 .sesion-btn {
   background-color: transparent;
   border: 1px solid #a8a8a8; 
-  color: #a8a8a8;
+  color: #f9f9f9;
   padding: 8px 15px; 
   cursor: pointer;
   border-radius: 4px;
@@ -118,9 +121,18 @@
 .bienvenida {
   margin-right: 10px;
   font-size: 0.95rem; 
-  color: #D9D9D9; 
+  color: #ffffff; 
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
 }
-
+.navbar .admin {
+  color: #f0eeee;
+  text-decoration: none;
+  font-size: 1rem; 
+} 
+.navbar .admin:hover {
+  color: #0D0D0D; 
+}
 
 @media (max-width: 992px) { 
   .navbar-container {
@@ -174,6 +186,7 @@
     width: 100%; 
     gap: 15px; 
     padding-bottom: 15px;
+    
   }
 
   .btn {
@@ -181,6 +194,7 @@
     max-width: 250px; 
   }
 }
+
 
 
 @media (max-width: 768px) {

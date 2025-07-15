@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // 1. Faltaba importar SweetAlert2
 import { useAppContext } from '../../context/AppContext';
 import './ProductForm.css';
 
@@ -17,24 +18,15 @@ function ProductForm() {
   const navigate = useNavigate();
   const { products, addProduct, updateProduct } = useAppContext();
   const [formData, setFormData] = useState(initialState);
-
-  // Estado de error local, exclusivo para este formulario.
-  const [formError, setFormError] = useState(null);
-
   const isEditing = Boolean(id);
 
   useEffect(() => {
-    // Limpia cualquier error previo si el ID cambia (al navegar entre editar y crear)
-    setFormError(null);
-
     if (isEditing) {
       const productToEdit = products.find((p) => p.id === id);
       if (productToEdit) {
-        // Combina el estado inicial con los datos del producto para evitar valores 'undefined'.
         setFormData({ ...initialState, ...productToEdit });
       }
     } else {
-      // Resetea el formulario al estado inicial si estamos creando un producto nuevo.
       setFormData(initialState);
     }
   }, [id, products, isEditing]);
@@ -44,10 +36,8 @@ function ProductForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // La función de submit ahora es asíncrona para usar await y try/catch.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormError(null); // Limpia errores anteriores antes de un nuevo intento.
 
     const productData = {
       ...formData,
@@ -55,19 +45,34 @@ function ProductForm() {
     };
 
     try {
-      // Llama a la función correspondiente y espera a que termine.
+      const successMessage = isEditing ? 'Producto actualizado con éxito' : 'Producto agregado con éxito';
+      
       if (isEditing) {
         await updateProduct(id, productData);
       } else {
         await addProduct(productData);
       }
-      // Si todo sale bien, navega al panel de administración.
+      
+      // 2. Muestra la alerta de éxito al completar la operación
+      await Swal.fire({
+        title: '¡Éxito!',
+        text: successMessage,
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      
       navigate('/adminPanel');
+
     } catch (error) {
-      // Si ocurre un error en addProduct o updateProduct, se captura aquí.
       console.error("Error al enviar el formulario:", error);
-      // El error se muestra localmente en el formulario.
-      setFormError(error.message);
+      
+      // 3. Muestra la alerta de error si la operación falla
+      Swal.fire({
+        title: 'Error',
+        text: `No se pudo guardar el producto: ${error.message}`,
+        icon: 'error',
+      });
     }
   };
 
@@ -77,59 +82,24 @@ function ProductForm() {
       <form onSubmit={handleSubmit} className="product-form">
         <div className="form-group">
           <label>Título</label>
-          <input
-            type="text"
-            name="titulo"
-            value={formData.titulo}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label>Descripción</label>
-          <textarea
-            name="descripcion"
-            value={formData.descripcion}
-            onChange={handleChange}
-            required
-          />
+          <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label>Precio</label>
-          <input
-            type="number"
-            name="precio"
-            step="0.01"
-            value={formData.precio}
-            onChange={handleChange}
-            placeholder="Ej: 299.99"
-            required
-          />
+          <input type="number" name="precio" step="0.01" value={formData.precio} onChange={handleChange} placeholder="Ej: 299.99" required />
         </div>
         <div className="form-group">
           <label>URL de la Imagen</label>
-          <input
-            type="text"
-            name="img"
-            value={formData.img}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="img" value={formData.img} onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label>Categoría</label>
-          <input
-            type="text"
-            name="categoria"
-            value={formData.categoria}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="categoria" value={formData.categoria} onChange={handleChange} required />
         </div>
-
-        {/* Muestra el mensaje de error local si existe */}
-        {formError && <p className="form-error-message">{formError}</p>}
-
         <button type="submit" className="submit-btn">
           {isEditing ? 'Actualizar Producto' : 'Agregar Producto'}
         </button>

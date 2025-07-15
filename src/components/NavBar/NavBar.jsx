@@ -46,9 +46,10 @@ function NavBar() {
             {isLoggedIn ? (
               <>
                 <span className="bienvenida"> {user.name}</span>
-                <Link to="/adminPanel" onClick={() => setExpanded(false)}>🛠️ Admin Panel</Link>
-              
+
                 <button className="sesion-btn" onClick={handleLogout}>Cerrar sesión</button>
+                
+                <Link to="/adminPanel" className='admin' onClick={() => setExpanded(false)}>🛠️ Admin Panel</Link>
               </>
             ) : (
               <button className="sesion-btn" onClick={() => { setExpanded(false); navigate('/login'); }}>
