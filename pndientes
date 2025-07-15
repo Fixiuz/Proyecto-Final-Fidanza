@@ -1,0 +1,19 @@
+- Agregar imgs de audio-consolas-gaming y ofertas a cloudinary
+- Agregar sweet alert en los alerts del delete de producto, edicion y agregado de producto
+- Estilizar boton de AdminPanel en navBar
+- Estilizar el nombre de usuario en navBar
+- Estilizar un poco el AdminPanel
+- Agregar Slider de marcas
+- Agregar react helmet : / - /carrito - /about - /catalogo - /contact - /login - /item/:id - /checkout -  /factura/:id - /adminPanel
+- revisar responsive
+- ver de agregar paginación
+- armar readme
+- depurar codigo
+
+
+
+
+
+
+
+

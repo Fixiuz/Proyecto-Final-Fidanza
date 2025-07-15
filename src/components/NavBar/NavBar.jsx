@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './NavBar.css';
 import { useAppContext } from '../../context/AppContext';
 import CartWidget from '../CartWidget/CartWidget'; // Modificación: Importamos el nuevo componente
+import { TbTools } from "react-icons/tb";
 
 function NavBar() {
   const [expanded, setExpanded] = useState(false);
@@ -31,8 +32,8 @@ function NavBar() {
 
         <div className={`navbar-menu ${expanded ? 'expanded' : ''}`}>
           <ul className="navbar-center">
-            <li><Link to="/catalogo" onClick={() => setExpanded(false)}>Catálogo</Link></li>
-            <li><Link to="/about" onClick={() => setExpanded(false)}>Quiénes Somos</Link></li>
+            <li><Link to="/catalogo" onClick={() => setExpanded(false)}>Productos</Link></li>
+            <li><Link to="/about" onClick={() => setExpanded(false)}>Cómo Comprar</Link></li>
             <li><Link to="/contact" onClick={() => setExpanded(false)}>Contactanos</Link></li>
           </ul>
 
@@ -44,7 +45,9 @@ function NavBar() {
 
             {isLoggedIn ? (
               <>
-                <span className="bienvenida">Bienvenido, {user.name}</span>
+                <span className="bienvenida"> {user.name}</span>
+                <Link to="/adminPanel" onClick={() => setExpanded(false)}>🛠️ Admin Panel</Link>
+              
                 <button className="sesion-btn" onClick={handleLogout}>Cerrar sesión</button>
               </>
             ) : (

@@ -16,6 +16,8 @@ import CheckoutForm from './components/CheckoutForm/CheckoutForm';
 import Factura from './components/Factura/Factura';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import CartSidebar from './components/CartSidebar/CartSidebar';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import ProductForm from './components/ProductForm/ProductForm'; 
 
 function LandingPage() {
   return (
@@ -55,6 +57,9 @@ function AppContent() {
             <Route path="/item/:id" element={<ItemDetail />} />
             <Route path="/checkout" element={<ProtectedRoute><CheckoutForm /></ProtectedRoute>} />
             <Route path="/factura/:id" element={<Factura />} />
+            <Route path="/adminPanel" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
+            <Route path="/admin/product" element={<ProtectedRoute><ProductForm /></ProtectedRoute>} />
+            <Route path="/admin/product/:id" element={<ProtectedRoute><ProductForm /></ProtectedRoute>} />
             <Route path="*" element={<div>404 - Página no encontrada</div>} />
           </Routes>
         </main>
