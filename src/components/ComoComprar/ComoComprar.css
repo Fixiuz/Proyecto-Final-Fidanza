@@ -1,0 +1,122 @@
+.como-comprar-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.como-comprar-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.como-comprar-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1c3d5a;
+  margin-bottom: 0.5rem;
+}
+
+.como-comprar-header p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pasos-container {
+  display: grid;
+  
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.paso-item {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.paso-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.paso-icon {
+  font-size: 3rem;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.paso-item h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.paso-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.faq-section {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.faq-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.faq-item {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.faq-item h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cta-container {
+  text-align: center;
+}
+
+.cta-button {
+  background-color: #28a745;
+  color: white;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #218838;
+}
+
+
+@media (max-width: 768px) {
+  .pasos-container {
+    
+    grid-template-columns: 1fr;
+  }
+
+  .como-comprar-header h1 {
+    font-size: 2rem;
+  }
+}

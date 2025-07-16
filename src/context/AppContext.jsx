@@ -1,11 +1,11 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-// MODIFICACIÓN: Importamos el nuevo hook personalizado.
+
 import { useWindowSize } from '../hooks/useWindowSize';
 
-// 1. Creamos el contexto
+
 const AppContext = createContext();
 
-// 2. Creamos un hook personalizado para consumir el contexto fácilmente
+
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
@@ -14,35 +14,33 @@ export const useAppContext = () => {
   return context;
 };
 
-// 3. Creamos el componente Proveedor que envolverá la aplicación
+
 export const AppProvider = ({ children }) => {
-  // --- Estados del Contexto ---
   
-  // Estado para el Login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Estado para los Productos
+  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Estado para el Carrito
+  
   const [cart, setCart] = useState([]);
 
-  // Estado para el Carrito Lateral (Sidebar)
+ 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
-  // MODIFICACIÓN: Usamos el hook para obtener el tamaño de la ventana.
-  const { width } = useWindowSize();
-  const isMobile = width < 768; // Definimos 768px como el punto de quiebre para móvil.
   
-  // URL de la API
+  const { width } = useWindowSize();
+  const isMobile = width < 768; 
+  
+  
   const API_URL = 'https://682ebe91746f8ca4a47e1ee6.mockapi.io/Productos';
 
-  // --- Efectos y Funciones ---
+  
 
-  // Efecto para cargar los productos desde la API al iniciar
+  
   const fetchProducts = async () => {
     setLoading(true);
     try {
@@ -64,7 +62,7 @@ export const AppProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
-  // Funciones de Login
+  
   const login = (userData) => {
     setIsLoggedIn(true);
     setUser(userData);
@@ -75,7 +73,7 @@ export const AppProvider = ({ children }) => {
     setUser(null);
   };
   
-  // Funciones CRUD para Productos
+  
   const addProduct = async (productData) => {
     delete productData.id;
     console.log("Enviando estos datos a la API:", productData);
@@ -127,7 +125,7 @@ export const AppProvider = ({ children }) => {
     await fetchProducts();
   };
 
-  // Funciones del Carrito
+  
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(item => item.id === product.id);
@@ -138,7 +136,7 @@ export const AppProvider = ({ children }) => {
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
-    // MODIFICACIÓN: Solo abrimos el carrito lateral si NO estamos en un dispositivo móvil.
+    
     if (!isMobile) {
       setIsSidebarOpen(true);
     }
@@ -163,7 +161,7 @@ export const AppProvider = ({ children }) => {
     setCart([]);
   };
 
-  // Función para crear la orden de compra
+  
   const crearOrden = (datosCheckout, onSuccess, onError) => {
     try {
       const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0);
@@ -196,7 +194,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // 4. Valor que se pasará a los componentes hijos
+  
   const value = {
     isLoggedIn,
     user,

@@ -1,10 +1,11 @@
-// En src/components/CheckoutForm/CheckoutForm.jsx
+
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // 1. Importamos SweetAlert2
+import Swal from 'sweetalert2'; 
 import { useAppContext } from '../../context/AppContext';
 import './CheckoutForm.css';
+import { Helmet } from 'react-helmet-async';
 
 function CheckoutForm() {
   const { crearOrden, user } = useAppContext();
@@ -23,28 +24,28 @@ function CheckoutForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 2. Modificamos la función handleSubmit para usar SweetAlert
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la validación de los campos...
+    
 
-    // Definimos la función que se ejecutará si la orden se crea con éxito
+    
     const onSuccess = (ordenId, orden) => {
       Swal.fire({
         title: '¡Compra Realizada!',
         text: `Tu pedido #${ordenId} ha sido procesado con éxito.`,
         icon: 'success',
         confirmButtonText: 'Ver Mi Factura',
-        allowOutsideClick: false // Evita que la alerta se cierre al hacer clic fuera
+        allowOutsideClick: false 
       }).then((result) => {
-        // Cuando el usuario presiona el botón, lo redirigimos a la factura
+        
         if (result.isConfirmed) {
           navigate(`/factura/${ordenId}`, { state: { ordenId, orden } });
         }
       });
     };
 
-    // Definimos la función que se ejecutará si hay un error
+    
     const onError = (error) => {
       console.error('Error al procesar el pago:', error);
       Swal.fire({
@@ -54,12 +55,17 @@ function CheckoutForm() {
       });
     };
 
-    // Llamamos a crearOrden con los datos y las funciones de callback
+    
     crearOrden(formData, onSuccess, onError);
   };
 
   return (
     <div className="checkout-container">
+      <Helmet>
+        <title>TechLife - Finalizar Compra</title>
+        <meta name="description" content="Finaliza tu compra de manera segura en TechLife." />
+      </Helmet>
+      
       <h2>Datos de Pago</h2>
       <form onSubmit={handleSubmit} className="checkout-form">
         <div className="form-group">

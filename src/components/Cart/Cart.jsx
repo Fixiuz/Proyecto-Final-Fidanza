@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { Helmet } from 'react-helmet-async'; 
 import './Cart.css';
 
 function Cart() {
@@ -9,14 +10,19 @@ function Cart() {
 
   const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0);
 
-  // La lógica del botón ahora es más simple, solo tiene que navegar.
-  // El ProtectedRoute se encargará de la validación.
+ 
   const handleCheckout = () => {
     navigate('/checkout');
   };
 
   return (
     <div className="cart-container">
+      <Helmet>
+        <title>TechLife - Carrito</title>
+        <meta name="description" content="Revisa los productos en tu carrito de compras en TechLife." />
+      </Helmet>
+      
+      
       <h2>Tu Carrito</h2>
       {cart.length === 0 ? (
         <div style={{ textAlign: 'center' }}>

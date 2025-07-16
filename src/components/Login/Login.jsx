@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { Helmet } from 'react-helmet-async';
 import './Login.css';
 
 // --- Sub-componente para la Mascota (PINGÜINO) ---
@@ -62,7 +63,7 @@ const LoginMascot = ({ state }) => {
 };
 
 
-// --- Componente Principal ---
+
 const Login = () => {
   const [nombre, setNombre] = useState('');
   const [contrasena, setContrasena] = useState('');
@@ -70,7 +71,7 @@ const Login = () => {
   const location = useLocation();
   const { login } = useAppContext();
 
-  // --- Estados para la animación ---
+  
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
@@ -86,7 +87,7 @@ const Login = () => {
     }
   };
 
-  // Determinar el estado de la mascota
+  
   let mascotState = 'idle';
   if (isPasswordFocused) {
     mascotState = 'hiding';
@@ -97,6 +98,10 @@ const Login = () => {
 
   return (
     <div className="login-page-container">
+      <Helmet>
+        <title>TechLife - Iniciar Sesión</title>
+        <meta name="description" content="Inicia sesión en tu cuenta de TechLife." />
+      </Helmet>
       <div className="login-mascot">
         <LoginMascot state={mascotState} />
       </div>

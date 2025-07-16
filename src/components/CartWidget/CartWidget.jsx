@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
 import { useAppContext } from '../../context/AppContext';
-import './CartWidget.css'; // Crearemos este archivo para los estilos del contador
-
+import './CartWidget.css'; 
 const CartWidget = () => {
   const { cart } = useAppContext();
 
-  // Calculamos la cantidad total de items en el carrito (sumando las cantidades de cada producto)
+  
   const totalItems = cart.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.quantity;
   }, 0);

@@ -1,4 +1,4 @@
-/* En src/components/Login/Login.css */
+
 
 .login-page-container {
   display: flex;
@@ -10,22 +10,22 @@
 }
 
 .login-mascot {
-  margin-bottom: -60px; /* Hace que el búho se superponga con el formulario */
+  margin-bottom: -60px; 
   z-index: 10;
   transition: transform 0.3s ease-in-out;
 }
 
 .login-page-container:has(:focus-within) .login-mascot {
-  transform: scale(1.05); /* Agranda un poco el búho cuando el form tiene foco */
+  transform: scale(1.05); 
 }
 
 .login-container {
   width: 100%;
   max-width: 420px;
-  padding: 4rem 2.5rem 2.5rem 2.5rem; /* Más padding arriba para el búho */
+  padding: 4rem 2.5rem 2.5rem 2.5rem; 
   font-family: 'Poppins', 'Verdana', sans-serif;
   
-  /* Efecto Glasmorphismo */
+
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);

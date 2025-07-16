@@ -1,14 +1,19 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Item from '../Item/Item';
 import './ItemListContainer.css';
-import { Container, Row, Col, Form, ListGroup, Spinner, Alert, Button } from 'react-bootstrap';
+
+import { Container, Row, Col, Form, ListGroup, Spinner, Alert, Button, Pagination } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { Helmet } from 'react-helmet-async';
 
 function ItemListContainer() {
   const { products: productos, loading: cargando, error, isSidebarOpen } = useAppContext();
   
-  const [limite, setLimite] = useState(12);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12; 
+
   const [orden, setOrden] = useState('');
   const [busqueda, setBusqueda] = useState('');
 
@@ -20,7 +25,8 @@ function ItemListContainer() {
 
   useEffect(() => {
     setCategoriaSeleccionada(categoriaFromUrl || '');
-    setLimite(12);
+    
+    setCurrentPage(1); 
   }, [categoriaFromUrl]);
 
   const categorias = useMemo(
@@ -59,37 +65,44 @@ function ItemListContainer() {
     return filtrados;
   }, [productos, busqueda, categoriaSeleccionada, orden]);
 
-  const mostrarMas = () => {
-    setLimite(prev => prev + 12);
-  };
+  
 
+  
+  const totalPages = Math.ceil(productosFiltrados.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productosFiltrados.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+      window.scrollTo(0, 0);
+    }
+  };
+  
   return (
     <Container fluid className="mt-4">
+      <Helmet>
+        <title>{categoriaSeleccionada ? `${categoriaSeleccionada}` : 'Catálogo'} - TechLife</title>
+        <meta name="description" content={`Explora nuestro catálogo de productos en TechLife. ${categoriaSeleccionada ? `Categoría: ${categoriaSeleccionada}` : ''}`} />
+      </Helmet>
+      
       <h2 className="item-list-title">
         {categoriaSeleccionada ? `Productos de ${categoriaSeleccionada}` : 'Novedades'}
       </h2>
       <Row>
-        {/* Sidebar para Escritorio (Oculto en móvil) */}
+        
         <Col md={3} className="d-none d-md-block">
+          
           <div className="sidebar p-3 border rounded bg-light mb-4">
             <h5>Filtrar y ordenar</h5>
             <Form.Group className="mb-3">
               <Form.Label>Buscar</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Buscar por nombre o descripción"
-                value={busqueda}
-                onChange={e => setBusqueda(e.target.value)}
-                aria-label="Buscar productos por nombre"
-              />
+              <Form.Control type="text" placeholder="Buscar por nombre o descripción" value={busqueda} onChange={e => setBusqueda(e.target.value)} aria-label="Buscar productos por nombre" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Ordenar por</Form.Label>
-              <Form.Select
-                value={orden}
-                onChange={e => setOrden(e.target.value)}
-                aria-label="Ordenar productos"
-              >
+              <Form.Select value={orden} onChange={e => setOrden(e.target.value)} aria-label="Ordenar productos">
                 <option value="">Sin ordenar</option>
                 <option value="titulo">Nombre</option>
                 <option value="categoria">Categoría</option>
@@ -98,20 +111,11 @@ function ItemListContainer() {
             </Form.Group>
             <h6>Categorías</h6>
             <ListGroup>
-              <ListGroup.Item
-                action
-                active={categoriaSeleccionada === ''}
-                onClick={() => setCategoriaSeleccionada('')}
-              >
+              <ListGroup.Item action active={categoriaSeleccionada === ''} onClick={() => setCategoriaSeleccionada('')}>
                 Todas
               </ListGroup.Item>
               {categorias.map(cat => (
-                <ListGroup.Item
-                  key={cat}
-                  action
-                  active={categoriaSeleccionada === cat}
-                  onClick={() => setCategoriaSeleccionada(cat)}
-                >
+                <ListGroup.Item key={cat} action active={categoriaSeleccionada === cat} onClick={() => setCategoriaSeleccionada(cat)}>
                   {cat}
                 </ListGroup.Item>
               ))}
@@ -119,16 +123,13 @@ function ItemListContainer() {
           </div>
         </Col>
 
-        {/* Columna principal para productos */}
+        
         <Col xs={12} md={9}>
-          {/* MODIFICACIÓN: Añadimos un selector de categorías visible solo en móvil */}
+          
           <div className="mobile-controls d-block d-md-none">
             <Form.Group controlId="mobileCategorySelector">
               <Form.Label>Selecciona una categoría</Form.Label>
-              <Form.Select
-                value={categoriaSeleccionada}
-                onChange={(e) => setCategoriaSeleccionada(e.target.value)}
-              >
+              <Form.Select value={categoriaSeleccionada} onChange={(e) => setCategoriaSeleccionada(e.target.value)}>
                 <option value="">Todas las categorías</option>
                 {categorias.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -148,14 +149,25 @@ function ItemListContainer() {
             <Alert variant="warning">No se encontraron productos para esta búsqueda.</Alert>
           ) : (
             <>
+              
               <div className={`item-grid ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-                {productosFiltrados.slice(0, limite).map(producto => (
+                {currentItems.map(producto => (
                   <Item key={producto.id} producto={producto} />
                 ))}
               </div>
-              {productosFiltrados.length > limite && (
-                <div className="text-center mt-4">
-                  <Button onClick={mostrarMas}>Cargar más</Button>
+              
+              
+              {totalPages > 1 && (
+                <div className="pagination-container">
+                  <Pagination>
+                    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                    {[...Array(totalPages).keys()].map(number => (
+                      <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => handlePageChange(number + 1)}>
+                        {number + 1}
+                      </Pagination.Item>
+                    ))}
+                    <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+                  </Pagination>
                 </div>
               )}
             </>

@@ -1,4 +1,4 @@
-/* src/components/ItemListContainer/ItemListContainer.css */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Rubik+Glitch&display=swap');
 
@@ -8,22 +8,22 @@
 
 .item-list-title {
   text-align: center;
-  font-size: 2.5rem; /* Un poco más pequeño para móvil */
+  font-size: 2.5rem; 
   margin-bottom: 3rem;
   margin-top: 3rem;
   color: #404040;
   font-family: 'orbitron', sans-serif;
 }
 
-/* MODIFICACIÓN: Añadimos estilos para el nuevo contenedor del selector móvil */
+
 .mobile-controls {
   margin-bottom: 2rem;
 }
 
 .item-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Por defecto, siempre una columna */
-  gap: 1.5rem; /* Un poco menos de espacio en móvil */
+  grid-template-columns: 1fr; 
+  gap: 1.5rem; 
   transition: grid-template-columns 0.4s ease-in-out;
 }
 
@@ -76,20 +76,19 @@
 
 @media (min-width: 768px) {
   .item-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 2rem;
   }
   .item-list-title {
-    font-size: 3rem; /* Restauramos el tamaño del título */
+    font-size: 3rem; 
   }
 }
 
 @media (min-width: 992px) {
   .item-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas cuando aparece el sidebar de filtros */
+    grid-template-columns: repeat(3, 1fr); 
   }
 
-  /* Si el carrito lateral está abierto, reducimos a 2 columnas */
   .item-grid.sidebar-open {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -97,10 +96,15 @@
 
 @media (min-width: 1400px) {
   .item-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas muy anchas */
+    grid-template-columns: repeat(4, 1fr); 
   }
-
-  /* Si el carrito lateral está abierto, reducimos a 3 columnas */
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-right: 200px;
+  }
+  
   .item-grid.sidebar-open {
     grid-template-columns: repeat(3, 1fr);
   }

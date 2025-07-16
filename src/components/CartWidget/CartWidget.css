@@ -1,16 +1,16 @@
-/* Posiciona el contenedor para que la burbuja sea relativa a él */
+
 .cart-widget-container {
   position: relative;
   display: inline-block;
   padding: 5px;
 }
 
-/* Estilos de la burbuja del contador */
+
 .cart-item-count {
   position: absolute;
-  top: -5px;      /* Ajusta para posicionar arriba del ícono */
-  right: -5px;     /* Ajusta para posicionar a la derecha del ícono */
-  background-color: #d9534f; /* Un color rojo llamativo */
+  top: -5px;     
+  right: -5px;    
+  background-color: #d9534f;
   color: white;
   border-radius: 50%;
   padding: 0.2em 0.5em;
@@ -20,5 +20,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 18px; /* Asegura que la burbuja sea circular incluso con un solo dígito */
+  min-width: 18px;
 }

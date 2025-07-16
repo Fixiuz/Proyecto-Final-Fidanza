@@ -152,7 +152,7 @@ function OfertasDestacadas() {
     <Container className="ofertas-container my-10">
       <h2 className="ofertas-title">🔥 Hot Week  🔥</h2>
 
-      {/* Contenedor del slider */}
+      
       <div className="slider-wrapper">
         <div
           ref={sliderRef}

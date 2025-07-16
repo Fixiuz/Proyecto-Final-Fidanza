@@ -2,13 +2,13 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Spinner, Alert } from 'react-bootstrap';
 import './ItemDetail.css';
-import { useAppContext } from '../../context/AppContext'; // Modificación
-
+import { useAppContext } from '../../context/AppContext'; 
+import { Helmet } from 'react-helmet-async';
 function ItemDetail() {
   const { id } = useParams();
-  const { products, loading, addToCart } = useAppContext(); // Modificación
+  const { products, loading, addToCart } = useAppContext(); 
 
-  // Modificación: Se elimina el fetch y los estados locales de producto y carga
+  
   const producto = products.find(p => p.id === id);
 
   if (loading) {
@@ -36,6 +36,10 @@ function ItemDetail() {
 
   return (
     <Container className="item-detail-container mt-5">
+      <Helmet>
+        <title>TechLife - Detalles del Producto</title>
+        <meta name="description" content="Revisa los detalles del producto en TechLife." />
+      </Helmet>
       <Row>
         <Col md={6}>
           <Image src={producto.img} alt={producto.titulo} fluid rounded />
@@ -49,7 +53,7 @@ function ItemDetail() {
             <Button 
               variant="success" 
               className="mt-3" 
-              onClick={() => addToCart(producto)} // Modificación
+              onClick={() => addToCart(producto)} 
             >
               Añadir al carrito
             </Button>

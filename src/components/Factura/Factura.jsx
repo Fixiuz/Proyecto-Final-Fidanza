@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { Helmet } from 'react-helmet-async';
 import './Factura.css';
 
 function Factura() {
@@ -11,7 +12,7 @@ function Factura() {
   const generarPDF = () => {
     const doc = new jsPDF();
     
-    // --- Cabecera de la Factura ---
+    
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.text('TechLife', 20, 25);
@@ -101,6 +102,10 @@ function Factura() {
 
   return (
     <div className="factura-container">
+      <Helmet>
+        <title>TechLife - Factura</title>
+        <meta name="description" content="Detalles de la factura de tu compra en TechLife." />
+      </Helmet>
       <div className="factura-header">
         <div className="icon">✓</div>
         <h2>¡Gracias por tu compra!</h2>

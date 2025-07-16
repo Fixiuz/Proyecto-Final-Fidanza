@@ -1,10 +1,9 @@
-// src/components/SliderMarcas/SliderMarcas.jsx
+
 
 import React from 'react';
-import './SliderMarcas.css'; // Crearemos este archivo de estilos en el siguiente paso
+import './SliderMarcas.css'; 
 
-// Define la lista de marcas que quieres mostrar.
-// Puedes agregar o quitar marcas fácilmente desde aquí.
+
 const marcas = [
   { nombre: 'Intel', logoUrl: 'https://res.cloudinary.com/dwjqk2hcf/image/upload/v1752593025/D_NQ_652365-MLA73147291085_112023-OO_xk4qzm.jpg' },
   { nombre: 'AMD', logoUrl: 'https://res.cloudinary.com/dwjqk2hcf/image/upload/v1752592981/D_NQ_935073-MLA54969655744_042023-OO_wcfucd.jpg' },
@@ -20,13 +19,13 @@ function SliderMarcas() {
   return (
     <div className="slider-container">
       <div className="slider-track">
-        {/* Renderizamos la lista de logos una vez */}
+        
         {marcas.map((marca, index) => (
           <div className="marca" key={`marca1-${index}`}>
             <img src={marca.logoUrl} alt={marca.nombre} className="marca-logo" />
           </div>
         ))}
-        {/* Y la volvemos a renderizar para crear el efecto de bucle infinito */}
+        
         {marcas.map((marca, index) => (
           <div className="marca" key={`marca2-${index}`}>
             <img src={marca.logoUrl} alt={marca.nombre} className="marca-logo" />

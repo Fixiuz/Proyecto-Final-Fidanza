@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // 1. Faltaba importar SweetAlert2
+import Swal from 'sweetalert2'; 
 import { useAppContext } from '../../context/AppContext';
 import './ProductForm.css';
 
-// Define el estado inicial fuera del componente para reutilizarlo y resetear el form.
+
 const initialState = {
   titulo: '',
   descripcion: '',
@@ -53,7 +53,7 @@ function ProductForm() {
         await addProduct(productData);
       }
       
-      // 2. Muestra la alerta de éxito al completar la operación
+      
       await Swal.fire({
         title: '¡Éxito!',
         text: successMessage,
@@ -67,7 +67,7 @@ function ProductForm() {
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       
-      // 3. Muestra la alerta de error si la operación falla
+      
       Swal.fire({
         title: 'Error',
         text: `No se pudo guardar el producto: ${error.message}`,

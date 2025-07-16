@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap'; // Se mantiene Card, pero no Button
+import { Card } from 'react-bootstrap'; 
 import { Link } from 'react-router-dom';
 import './Item.css';
 import { useAppContext } from '../../context/AppContext';
+import { Helmet } from 'react-helmet-async';
 
 function Item({ producto }) {
   const { addToCart } = useAppContext();
@@ -35,7 +36,7 @@ function Item({ producto }) {
           {producto.descripcion}
         </Card.Text>
         
-        {/* Usamos un div contenedor para el botón */}
+        
         <div className="item-btn-container">
           <button onClick={handleAddToCart} className="item-btn">
             Agregar al carrito

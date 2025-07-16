@@ -1,19 +1,17 @@
-/* El contenedor principal que oculta el desbordamiento */
 .slider-container {
-  overflow: hidden; /* Oculta las partes del carrusel que están fuera de la vista */
-  padding: 40px 0;
-  background-color: #f8f9fa; /* Un fondo claro para que resalten los logos */
-  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+  overflow: hidden; 
+  background-color: #f8f9fa; 
+  white-space: nowrap; 
   position: relative;
 }
 
-/* Máscara con degradado para un efecto de desvanecimiento en los bordes */
+
 .slider-container::before,
 .slider-container::after {
   content: '';
   position: absolute;
   top: 0;
-  width: 150px; /* Ancho del desvanecimiento */
+  width: 150px; 
   height: 100%;
   z-index: 2;
 }
@@ -28,50 +26,50 @@
   background: linear-gradient(to right, rgba(248, 249, 250, 0), #f8f9fa);
 }
 
-/* La pista que contiene todos los logos y que se anima */
+
 .slider-track {
-  display: inline-block; /* Permite que la animación funcione correctamente */
-  animation: scroll 40s linear infinite; /* La animación que crea el movimiento */
+  display: inline-block; 
+  animation: scroll 40s linear infinite; 
 }
 
-/* Pausar la animación cuando el usuario pasa el mouse por encima */
+
 .slider-container:hover .slider-track {
   animation-play-state: paused;
 }
 
-/* Definición de la animación de scroll */
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    /* Mueve la pista hacia la izquierda por la mitad de su ancho total */
+    
     transform: translateX(-50%);
   }
 }
 
-/* Contenedor de cada marca individual */
+
 .marca {
-  display: inline-block; /* Mantiene los logos en una línea */
+  display: inline-block; 
   margin: 0 40px;
 }
 
-/* Estilo para cada logo */
+
 .marca-logo {
-  height: 80px; /* Altura de los logos */
-  width: 80px;  /* Ancho de los logos */
-  border-radius: 50%; /* Esto los hace perfectamente circulares */
-  object-fit: contain; /* Asegura que el logo encaje bien dentro del círculo */
-  background-color: #ffffff; /* Fondo blanco para los logos */
+  height: 80px; 
+  width: 80px;  
+  border-radius: 50%; 
+  object-fit: contain; 
+  background-color: #ffffff; 
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  filter: grayscale(100%); /* Los logos empiezan en escala de grises */
-  transition: all 0.3s ease; /* Transición suave para los efectos de hover */
+  filter: grayscale(100%); 
+  transition: all 0.3s ease; 
 }
 
-/* Efecto al pasar el mouse por encima de un logo */
+
 .marca-logo:hover {
-  filter: grayscale(0%); /* El logo recupera su color */
-  transform: scale(1.1); /* Se agranda ligeramente */
+  filter: grayscale(0%); 
+  transform: scale(1.1); 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }

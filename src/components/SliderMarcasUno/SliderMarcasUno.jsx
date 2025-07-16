@@ -31,13 +31,13 @@ function SliderMarcasUno() {
   return (
     <div className="slider-container">
       <div className="slider-track">
-        {/* Renderizamos la lista de logos una vez */}
+       
         {marcas.map((marca, index) => (
           <div className="marca" key={`marca1-${index}`}>
             <img src={marca.logoUrl} alt={marca.nombre} className="marca-logo" />
           </div>
         ))}
-        {/* Y la volvemos a renderizar para crear el efecto de bucle infinito */}
+        
         {marcas.map((marca, index) => (
           <div className="marca" key={`marca2-${index}`}>
             <img src={marca.logoUrl} alt={marca.nombre} className="marca-logo" />

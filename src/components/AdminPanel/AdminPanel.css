@@ -1,25 +1,25 @@
 .admin-panel {
   padding: 2rem;
   background-color: #f9f9f9;
-  /* El text-align: center; ya no es necesario aquí */
+  
 }
 .admin-panel p{
   color: #010101;
-  /* text-align: center; */
+  
   margin-top: 20px;
   font-size: 1.3rem;
   margin-bottom: 20px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* === SECCIÓN MODIFICADA === */
+
 .admin-header {
   display: flex;
-  /* Cambiamos a flex-end para empujar el botón a la derecha */
+ 
   justify-content: flex-end; 
   align-items: center;
   margin-bottom: 1rem;
-  /* Añadimos position: relative para que sea el ancla del h2 */
+  
   position: relative; 
 }
 
@@ -28,13 +28,13 @@
   color: #1c3d5a;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
-  /* Con estas 4 líneas centramos el título perfectamente */
+  
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  margin: 0; /* Quitamos el margen por defecto del h2 */
+  margin: 0; 
 }
-/* === FIN DE LA SECCIÓN MODIFICADA === */
+
 
 .add-product-btn {
   background-color: #28a745;

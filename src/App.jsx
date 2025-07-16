@@ -22,7 +22,8 @@ import AdminPanel from './components/AdminPanel/AdminPanel';
 import ProductForm from './components/ProductForm/ProductForm'; 
 import SegundoSlider from './components/SegundoSlider/SegundoSlider'; 
 import SliderMarcas from './components/SliderMarcas/SliderMarcas'; 
-
+import SliderMarcasUno from './components/SliderMarcasUno/SliderMarcasUno';
+import ComoComprar from './components/ComoComprar/ComoComprar';
 
 
 function LandingPage() {
@@ -71,7 +72,7 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/carrito" element={<Cart />} />
-            <Route path="/about" element={<Hero />} />
+            <Route path="/como-comprar" element={<ComoComprar />} />
             <Route path="/catalogo" element={<ItemListContainer />} />
             <Route path="/contact" element={<ContactForm />} />
             <Route path="/login" element={<Login />} />
