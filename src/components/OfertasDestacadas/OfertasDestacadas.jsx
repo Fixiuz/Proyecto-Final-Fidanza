@@ -90,7 +90,7 @@ function OfertasDestacadas() {
   if (cargando) {
     return (
       <Container className="ofertas-container my-5">
-        <h2 className="ofertas-title">🔥 Hot Week  🔥</h2>
+        <h2 className="ofertas-title">🔥 Ofertas  🔥</h2>
         <div className="text-center">
           <Spinner animation="border" variant="primary" />
           <p>Cargando ofertas destacadas...</p>
@@ -102,7 +102,7 @@ function OfertasDestacadas() {
   if (error) {
     return (
       <Container className="ofertas-container my-5">
-        <h2 className="ofertas-title">🔥 Hot Week  🔥</h2>
+        <h2 className="ofertas-title">🔥 Ofertas  🔥</h2>
         <Alert variant="danger">{error}</Alert>
       </Container>
     );
@@ -111,7 +111,7 @@ function OfertasDestacadas() {
   if (productosGaming.length <= VISIBLE_ITEMS) { 
     return (
       <Container className="ofertas-container my-5">
-        <h2 className="ofertas-title">🔥 Hot Week  🔥</h2>
+        <h2 className="ofertas-title">🔥 Ofertas  🔥</h2>
         <Row className="justify-content-center">
           {productosGaming.map((producto) => (
             <Col key={producto.id} xs={12} sm={6} md={12 / VISIBLE_ITEMS} className="mb-4">
@@ -150,7 +150,7 @@ function OfertasDestacadas() {
 
   return (
     <Container className="ofertas-container my-10">
-      <h2 className="ofertas-title">🔥 Hot Week  🔥</h2>
+      <h2 className="ofertas-title">🔥 Ofertas  🔥</h2>
 
       
       <div className="slider-wrapper">

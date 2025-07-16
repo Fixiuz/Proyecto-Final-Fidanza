@@ -1,0 +1,88 @@
+.gaming-section-container {
+  padding: 4rem 2rem;
+  background-color: #1a1a2e; 
+}
+
+.gaming-section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gaming-section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-family: 'Orbitron', sans-serif; 
+}
+  .gaming-section-header p {
+  font-size: 1.1rem;
+  color: #a9a9b3;
+}
+
+.gaming-grid {
+  display: grid;
+  
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gaming-card {
+  background: #16213e; 
+  border: 1px solid #0f3460;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.gaming-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(224, 8, 8, 0.2); 
+}
+.gaming-card-icon-container {
+  margin-bottom: 1.5rem;
+}
+
+.gaming-card-icon {
+  font-size: 3rem;
+  color: #e94560; 
+  margin: 0 0.5rem;
+}
+
+.gaming-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.gaming-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #a9a9b3;
+  flex-grow: 1; 
+  margin-bottom: 1.5rem;
+}
+
+.gaming-card-button {
+  display: inline-block;
+  background-color: #e94560;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.gaming-card-button:hover {
+  background-color: #c63a50;
+}

@@ -34,7 +34,7 @@ function NavBar() {
           <ul className="navbar-center">
             <li><Link to="/catalogo" onClick={() => setExpanded(false)}>Productos</Link></li>
             <li><Link to="/como-comprar" onClick={() => setExpanded(false)}>Cómo Comprar</Link></li>
-            <li><Link to="/contact" onClick={() => setExpanded(false)}>Contactanos</Link></li>
+            <li><Link to="/contacto" onClick={() => setExpanded(false)}>Contactanos</Link></li>
           </ul>
 
           <div className="navbar-right">

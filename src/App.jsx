@@ -7,7 +7,7 @@ import { AppProvider, useAppContext } from './context/AppContext';
 import NavBar from './components/NavBar/NavBar';
 import Hero from './components/Hero/Hero';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import ContactForm from './components/ContactForm/ContactForm';
+
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import ItemDetail from './components/ItemDetail/ItemDetail';
@@ -24,6 +24,9 @@ import SegundoSlider from './components/SegundoSlider/SegundoSlider';
 import SliderMarcas from './components/SliderMarcas/SliderMarcas'; 
 import SliderMarcasUno from './components/SliderMarcasUno/SliderMarcasUno';
 import ComoComprar from './components/ComoComprar/ComoComprar';
+import GamingSection from './components/GamingSection/GamingSection';
+import GuiasCompra from './components/GuiasCompra/GuiasCompra';
+import SeccionContacto from './components/SeccionContacto/SeccionContacto';
 
 
 function LandingPage() {
@@ -36,24 +39,36 @@ function LandingPage() {
       <section id="quienes-somos">
         <Hero />
       </section>
+      
       <section id="slider-marcas-uno">
         <SliderMarcasUno />
       </section>
-      <section id='ofertas'>
-        <OfertasDestacadas />
-      </section>
+      
       <section id="categorias">
         <Categorias />
       </section>
       <section id="segundo-slider">
         <SegundoSlider />
       </section>
-       <section id="slider-marcas">
-        <SliderMarcas />
+      
+      <section id='ofertas'>
+        <OfertasDestacadas />
       </section>
       
+      <section id="slider-marcas">
+        <SliderMarcas />
+      </section>
+      <section id="gaming-section">
+        <GamingSection />
+      </section>
+      <section id="guias-compra">
+        <GuiasCompra />
+      </section>
+      <section id="slider-marcas-uno">
+        <SliderMarcasUno />
+      </section>
       <section id="contacto">
-        <ContactForm />
+        <SeccionContacto />
       </section>
      
     </>
@@ -74,7 +89,7 @@ function AppContent() {
             <Route path="/carrito" element={<Cart />} />
             <Route path="/como-comprar" element={<ComoComprar />} />
             <Route path="/catalogo" element={<ItemListContainer />} />
-            <Route path="/contact" element={<ContactForm />} />
+            <Route path="/contacto" element={<SeccionContacto />} />
             <Route path="/login" element={<Login />} />
             <Route path="/item/:id" element={<ItemDetail />} />
             <Route path="/checkout" element={<ProtectedRoute><CheckoutForm /></ProtectedRoute>} />
