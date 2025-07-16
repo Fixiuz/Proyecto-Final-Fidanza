@@ -13,13 +13,13 @@ Bienvenido a TechLife, una tienda online de componentes de hardware y periféric
 *Aquí puedes agregar capturas de pantalla de tu aplicación. Te recomiendo subirlas a una carpeta en tu proyecto (o a un servicio como Imgur) y enlazar a ellas.*
 
 **Página de Inicio**
-![Página de Inicio](URL_A_TU_IMAGEN_DE_INICIO)
+![Página de Inicio] https://techlife-ar.netlify.app/
 
 **Catálogo con Filtros**
-![Catálogo de Productos](URL_A_TU_IMAGEN_DEL_CATALOGO)
+![Catálogo de Productos] https://techlife-ar.netlify.app/catalogo
 
 **Panel de Administrador**
-![Panel de Administrador](URL_A_TU_IMAGEN_DEL_ADMIN_PANEL)
+![Panel de Administrador] https://techlife-ar.netlify.app/adminPanel
 
 ---
 
